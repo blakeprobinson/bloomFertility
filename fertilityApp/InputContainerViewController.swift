@@ -13,6 +13,7 @@ class InputContainerViewController: UIViewController, UIPageViewControllerDataSo
     var dates:[String] = []
     var model:[[Day]] = Day.loadDaysAsCycles()
     
+    @IBOutlet weak var saveFertilityInput: UIButton!
     
     override func viewDidLoad() {
         dates = ["Today", "Yesterday", "10/8/16", "10/7/16"]
@@ -23,7 +24,7 @@ class InputContainerViewController: UIViewController, UIPageViewControllerDataSo
         let viewControllers = [startingViewController]
         pageViewController.setViewControllers(viewControllers, direction:.Forward, animated: false, completion:nil)
         
-        pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30);
+        pageViewController.view.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
         self.addChildViewController(pageViewController)
         
         self.view.addSubview(pageViewController.view)

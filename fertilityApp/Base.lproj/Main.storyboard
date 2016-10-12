@@ -324,16 +324,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WjO-xo-dmc">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WjO-xo-dmc">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="69" id="bRy-Rv-gxZ"/>
+                                </constraints>
                                 <items>
-                                    <navigationItem title="Bloom Fertility" id="DI0-bI-aEa"/>
+                                    <navigationItem title="Bloom Fertility" id="DI0-bI-aEa">
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="JeN-cZ-znp">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LVi-8p-ky4">
+                                                <rect key="frame" x="447" y="32" width="133" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                            </button>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WjO-xo-dmc" firstAttribute="width" secondItem="geo-TH-4Aj" secondAttribute="width" id="hXr-54-R6j"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="ax3-Sz-C0X"/>
+                    <connections>
+                        <outlet property="saveFertilityInput" destination="LVi-8p-ky4" id="Gdy-cx-JIx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pbj-yx-z7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
