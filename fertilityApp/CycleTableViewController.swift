@@ -39,6 +39,7 @@ class CycleTableViewController: UITableViewController {
     override func viewWillAppear(animated:Bool) {
         super.viewWillAppear(animated)
         model = Day.loadDaysAsCycles()
+        cycleTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,6 +100,8 @@ extension CycleTableViewController: UICollectionViewDelegate, UICollectionViewDa
                                                                          forIndexPath: indexPath)
         
         cell.backgroundColor = model[collectionView.tag][indexPath.item].returnUIColor()
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor.grayColor().CGColor
         
         return cell
     }
