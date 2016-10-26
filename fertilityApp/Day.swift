@@ -11,6 +11,74 @@ import UIKit
 class Day: NSObject, NSCoding {
     
     //MARK: Class Methods
+    
+    //This function and the function below will be needed when we allow users to input data
+    //from different dates.  For now they can't do that.
+    class func saveDays(days:Array<Day>) {
+        
+        if days.count >= 2 {
+            let firstDate = days[days.count-1].date
+            let secondDate = days[days.count-2].date
+            let daysBetweenDates = Day.determineDaysBetweenDates(firstDate,secondDate: secondDate)
+            if daysBetweenDates > 0 {
+                let filledInDays = Day.addDaysToArray(days, daysBetweenDates: daysBetweenDates)
+                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(filledInDays, toFile: Day.ArchiveURL.path!)
+                if !isSuccessfulSave {
+                    print("Failed to save days...")
+                }
+            } else {
+                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path!)
+                
+                if !isSuccessfulSave {
+                    print("Failed to save days...")
+                }
+            }
+        }
+        
+    }
+    
+    class func addDaysToArray(days:Array<Day>, daysBetweenDates:Int) -> Array<Day> {
+        
+        var daysToMutate = days
+        //what dummy data do I want to put in
+        //I want to build an array of length equal to daysBetweenDates
+
+        
+        var currentDay = days[days.count-2].date
+        
+        for index in 1...daysBetweenDates {
+            let nextDay = NSCalendar.currentCalendar()
+                .dateByAddingUnit(
+                    .Day,
+                    value: 1,
+                    toDate: currentDay,
+                    options: []
+            )
+            let day = Day(category1: "", category2: nil, selection1: "", selection2: nil, selection3: nil, mucusType:"", heart: false, lubrication: false, date: nextDay!, color:"yellow", fertile:false, peak: false)!
+            
+            daysToMutate.insert(day, atIndex: days.count-2)
+            currentDay = nextDay!
+        }
+        
+        
+        
+        return daysToMutate
+    }
+    
+    class func determineDaysBetweenDates(firstDate:NSDate, secondDate:NSDate) -> Int {
+        
+        let calendar = NSCalendar.currentCalendar()
+        
+        // Replace the hour (time) of both dates with 00:00
+        let date1 = calendar.startOfDayForDate(firstDate)
+        let date2 = calendar.startOfDayForDate(secondDate)
+        
+        let flags = NSCalendarUnit.Day
+        let components = calendar.components(flags, fromDate: date2, toDate: date1, options: [])
+        
+        return components.day-1  // This will return the number of day(s) between dates
+    }
+    
     class func loadDaysAsCycles() -> [[Day]] {
         var days = [Day]()
         var cycleArray = [Day]()
@@ -29,6 +97,7 @@ class Day: NSObject, NSCoding {
                         cycleArray.append(day)
                         previousDayNotRed = false
                     }
+                    //else not getting added
                 } else {
                     cycleArray.append(day)
                     previousDayNotRed = true
@@ -115,9 +184,9 @@ class Day: NSObject, NSCoding {
         //create methods that populate calendarOutput properties like
         //color, isFertile, etc.
         
-        if category1.isEmpty || selection1.isEmpty {
-            return nil
-        }
+//        if category1.isEmpty || selection1.isEmpty {
+//            return nil
+//        }
         
         
     }
@@ -130,6 +199,8 @@ class Day: NSObject, NSCoding {
                 color = UIColor.redColor()
             case "green":
                 color = UIColor.greenColor()
+            case "yellow":
+                color = UIColor.yellowColor()
             default:
                 color = UIColor.whiteColor()
         }
