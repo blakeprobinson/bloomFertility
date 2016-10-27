@@ -48,10 +48,16 @@ class CycleTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // 1
+        // Return the number of sections.
+        return model.count
+    }
 
     override func tableView(tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
-        return model.count
+        return 1
     }
     
     override func tableView(tableView: UITableView,
@@ -61,6 +67,26 @@ class CycleTableViewController: UITableViewController {
                                                                forIndexPath: indexPath)
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 25))
+        headerView.backgroundColor = UIColor.cyanColor()
+        
+        let headerLabel = UILabel(frame: CGRectMake(5, 3, 200, 20))
+        headerView.addSubview(headerLabel)
+        let sectionString = String(section)
+        
+        switch (section) {
+            case 0:
+                headerLabel.text = "This cycle"
+            case 1:
+                headerLabel.text = "Last cycle"
+            default:
+                headerLabel.text = "("+sectionString+")"
+        }
+        
+        return headerView
     }
     
     override func tableView(tableView: UITableView,
