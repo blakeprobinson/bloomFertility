@@ -18,21 +18,21 @@ class InputContainerViewController: UIViewController, UIPageViewControllerDataSo
     override func viewDidLoad() {
         dates = ["Today", "Yesterday", "10/8/16", "10/7/16"]
         var pageViewController:UIPageViewController
-        pageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("InputPageViewController") as! UIPageViewController
+        pageViewController = self.storyboard?.instantiateViewController(withIdentifier: "InputPageViewController") as! UIPageViewController
         pageViewController.dataSource = self
         let startingViewController = self.viewControllerAtIndex(0)
         let viewControllers = [startingViewController]
-        pageViewController.setViewControllers(viewControllers, direction:.Forward, animated: false, completion:nil)
+        pageViewController.setViewControllers(viewControllers, direction:.forward, animated: false, completion:nil)
         
-        pageViewController.view.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
+        pageViewController.view.frame = CGRect(x: 0, y: 70, width: self.view.frame.size.width, height: self.view.frame.size.height - 70);
         self.addChildViewController(pageViewController)
         
         self.view.addSubview(pageViewController.view)
-        pageViewController.didMoveToParentViewController(self)
+        pageViewController.didMove(toParentViewController: self)
         
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         let pageViewController = viewController as! FertilitySignViewController
         var index:Int
@@ -50,7 +50,7 @@ class InputContainerViewController: UIViewController, UIPageViewControllerDataSo
         return self.viewControllerAtIndex(index)
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         let pageViewController = viewController as! FertilitySignViewController
         var index:Int
@@ -68,9 +68,9 @@ class InputContainerViewController: UIViewController, UIPageViewControllerDataSo
         return self.viewControllerAtIndex(index)
     }
     
-    func viewControllerAtIndex(index:Int) -> FertilitySignViewController {
+    func viewControllerAtIndex(_ index:Int) -> FertilitySignViewController {
         
-        let fertilitySignVC = self.storyboard?.instantiateViewControllerWithIdentifier("FertilitySignViewController") as! FertilitySignViewController
+        let fertilitySignVC = self.storyboard?.instantiateViewController(withIdentifier: "FertilitySignViewController") as! FertilitySignViewController
         
         fertilitySignVC.pageIndex = 0;
         fertilitySignVC.leftDateText = "Yesterday"
@@ -79,7 +79,7 @@ class InputContainerViewController: UIViewController, UIPageViewControllerDataSo
         return fertilitySignVC
     }
     
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return 0
     }
 }

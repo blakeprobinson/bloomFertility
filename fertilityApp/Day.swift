@@ -14,7 +14,7 @@ class Day: NSObject, NSCoding {
     
     //This function and the function below will be needed when we allow users to input data
     //from different dates.  For now they can't do that.
-    class func saveDays(days:Array<Day>) {
+    class func saveDays(_ days:Array<Day>) {
         
         if days.count >= 2 {
             let firstDate = days[days.count-1].date
@@ -22,19 +22,19 @@ class Day: NSObject, NSCoding {
             let daysBetweenDates = Day.determineDaysBetweenDates(firstDate,secondDate: secondDate)
             if daysBetweenDates > 0 {
                 let filledInDays = Day.addDaysToArray(days, daysBetweenDates: daysBetweenDates)
-                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(filledInDays, toFile: Day.ArchiveURL.path!)
+                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(filledInDays, toFile: Day.ArchiveURL.path)
                 if !isSuccessfulSave {
                     print("Failed to save days...")
                 }
             } else {
-                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path!)
+                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path)
                 
                 if !isSuccessfulSave {
                     print("Failed to save days...")
                 }
             }
         } else {
-            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path!)
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path)
             
             if !isSuccessfulSave {
                 print("Failed to save days...")
@@ -43,7 +43,7 @@ class Day: NSObject, NSCoding {
         
     }
     
-    class func addDaysToArray(days:Array<Day>, daysBetweenDates:Int) -> Array<Day> {
+    class func addDaysToArray(_ days:Array<Day>, daysBetweenDates:Int) -> Array<Day> {
         
         var daysToMutate = days
         //what dummy data do I want to put in
@@ -53,16 +53,16 @@ class Day: NSObject, NSCoding {
         var currentDay = days[days.count-2].date
         
         for index in 1...daysBetweenDates {
-            let nextDay = NSCalendar.currentCalendar()
-                .dateByAddingUnit(
-                    .Day,
+            let nextDay = (Calendar.current as NSCalendar)
+                .date(
+                    byAdding: .day,
                     value: 1,
-                    toDate: currentDay,
+                    to: currentDay,
                     options: []
             )
             let day = Day(category1: "", category2: nil, selection1: "", selection2: nil, selection3: nil, mucusType:"", heart: false, lubrication: false, date: nextDay!, color:"yellow", fertile:false, peak: false)!
             
-            daysToMutate.insert(day, atIndex: days.count-2)
+            daysToMutate.insert(day, at: days.count-2)
             currentDay = nextDay!
         }
         
@@ -71,18 +71,18 @@ class Day: NSObject, NSCoding {
         return daysToMutate
     }
     
-    class func determineDaysBetweenDates(firstDate:NSDate, secondDate:NSDate) -> Int {
+    class func determineDaysBetweenDates(_ firstDate:Date, secondDate:Date) -> Int {
         
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current
         
         // Replace the hour (time) of both dates with 00:00
-        let date1 = calendar.startOfDayForDate(firstDate)
-        let date2 = calendar.startOfDayForDate(secondDate)
+        let date1 = calendar.startOfDay(for: firstDate)
+        let date2 = calendar.startOfDay(for: secondDate)
         
-        let flags = NSCalendarUnit.Day
-        let components = calendar.components(flags, fromDate: date2, toDate: date1, options: [])
+        let flags = NSCalendar.Unit.day
+        let components = (calendar as NSCalendar).components(flags, from: date2, to: date1, options: [])
         
-        return components.day-1  // This will return the number of day(s) between dates
+        return components.day!-1  // This will return the number of day(s) between dates
     }
     
     class func loadDaysAsCycles() -> [[Day]] {
@@ -91,10 +91,10 @@ class Day: NSObject, NSCoding {
         var arrayOfCycles = [[Day]]()
         var previousDayNotRed = true
         
-        if let daysWrapped = NSKeyedUnarchiver.unarchiveObjectWithFile(Day.ArchiveURL.path!) as? [Day] {
+        if let daysWrapped = NSKeyedUnarchiver.unarchiveObject(withFile: Day.ArchiveURL.path) as? [Day] {
             days = daysWrapped
             
-            for (index,day) in days.enumerate() {
+            for (index,day) in days.enumerated() {
                 //if today is red but yesterday was not
                 if day.color == "red" && previousDayNotRed {
                     if cycleArray.count > 0 {
@@ -125,23 +125,23 @@ class Day: NSObject, NSCoding {
         return arrayOfCycles
     }
     
-    class func loadSampleDays() -> [[Day]]{
-        let date1 = NSDate(dateString:"09/26/2016")
-        let day1 = Day(category1: "Bleeding", category2: nil, selection1: "heavy", selection2: nil, selection3: nil, mucusType:"", heart: false, lubrication: false, date: date1, color:"red", fertile:false, peak:false)!
-        
-        let date2 = NSDate(dateString:"09/25/2016")
-        let day2 = Day(category1: "Bleeding", category2: nil, selection1: "heavy", selection2: nil, selection3: nil, mucusType:"non-peak", heart: false, lubrication: false, date: date2, color:"red", fertile:true, peak:false)!
-        
-        let date3 = NSDate(dateString:"09/24/2016")
-        let day3 = Day(category1: "Bleeding", category2: nil, selection1: "heavy", selection2: nil, selection3: nil, mucusType:"peak", heart: false, lubrication: false, date: date3, color:"white", fertile:true, peak: true)!
-        
-        var days = [[Day]]()
-        
-        days.append([day1, day2, day3])
-        
-        return days
-        
-    }
+//    class func loadSampleDays() -> [[Day]]{
+//        let date1 = Date(dateString:"09/26/2016")
+//        let day1 = Day(category1: "Bleeding", category2: nil, selection1: "heavy", selection2: nil, selection3: nil, mucusType:"", heart: false, lubrication: false, date: date1, color:"red", fertile:false, peak:false)!
+//        
+//        let date2 = Date(dateString:"09/25/2016")
+//        let day2 = Day(category1: "Bleeding", category2: nil, selection1: "heavy", selection2: nil, selection3: nil, mucusType:"non-peak", heart: false, lubrication: false, date: date2, color:"red", fertile:true, peak:false)!
+//        
+//        let date3 = Date(dateString:"09/24/2016")
+//        let day3 = Day(category1: "Bleeding", category2: nil, selection1: "heavy", selection2: nil, selection3: nil, mucusType:"peak", heart: false, lubrication: false, date: date3, color:"white", fertile:true, peak: true)!
+//        
+//        var days = [[Day]]()
+//        
+//        days.append([day1, day2, day3])
+//        
+//        return days
+//        
+//    }
     
     // MARK: Properties
     var category1:String
@@ -152,7 +152,7 @@ class Day: NSObject, NSCoding {
     var mucusType:String?
     var heart:Bool
     var lubrication:Bool
-    var date:NSDate
+    var date:Date
     var color:String
     var fertile:Bool
     var peak:Bool
@@ -172,7 +172,7 @@ class Day: NSObject, NSCoding {
         static let peakKey = "peak"
     }
     
-    init?(category1: String, category2: String?, selection1: String, selection2: String?, selection3:String?, mucusType:String?, heart:Bool, lubrication:Bool, date:NSDate, color:String, fertile:Bool, peak:Bool) {
+    init?(category1: String, category2: String?, selection1: String, selection2: String?, selection3:String?, mucusType:String?, heart:Bool, lubrication:Bool, date:Date, color:String, fertile:Bool, peak:Bool) {
         
         self.category1 = category1
         self.category2 = category2
@@ -207,13 +207,13 @@ class Day: NSObject, NSCoding {
         
         switch self.color {
             case "red":
-                color = UIColor.redColor()
+                color = UIColor.red
             case "green":
-                color = UIColor.greenColor()
+                color = UIColor.green
             case "yellow":
-                color = UIColor.yellowColor()
+                color = UIColor.yellow
             default:
-                color = UIColor.whiteColor()
+                color = UIColor.white
         }
         
         return color
@@ -221,35 +221,35 @@ class Day: NSObject, NSCoding {
     
     // MARK: NSCoding
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(category1, forKey: PropertyKey.category1Key)
-        aCoder.encodeObject(category2, forKey: PropertyKey.category2Key)
-        aCoder.encodeObject(selection1, forKey: PropertyKey.selection1Key)
-        aCoder.encodeObject(selection2, forKey: PropertyKey.selection2Key)
-        aCoder.encodeObject(selection3, forKey: PropertyKey.selection3Key)
-        aCoder.encodeObject(mucusType, forKey: PropertyKey.mucusTypeKey)
-        aCoder.encodeBool(heart, forKey: PropertyKey.heartKey)
-        aCoder.encodeBool(lubrication, forKey: PropertyKey.lubricationKey)
-        aCoder.encodeObject(date, forKey: PropertyKey.dateKey)
-        aCoder.encodeObject(color, forKey: PropertyKey.colorKey)
-        aCoder.encodeBool(fertile, forKey: PropertyKey.fertileKey)
-        aCoder.encodeBool(peak, forKey: PropertyKey.peakKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(category1, forKey: PropertyKey.category1Key)
+        aCoder.encode(category2, forKey: PropertyKey.category2Key)
+        aCoder.encode(selection1, forKey: PropertyKey.selection1Key)
+        aCoder.encode(selection2, forKey: PropertyKey.selection2Key)
+        aCoder.encode(selection3, forKey: PropertyKey.selection3Key)
+        aCoder.encode(mucusType, forKey: PropertyKey.mucusTypeKey)
+        aCoder.encode(heart, forKey: PropertyKey.heartKey)
+        aCoder.encode(lubrication, forKey: PropertyKey.lubricationKey)
+        aCoder.encode(date, forKey: PropertyKey.dateKey)
+        aCoder.encode(color, forKey: PropertyKey.colorKey)
+        aCoder.encode(fertile, forKey: PropertyKey.fertileKey)
+        aCoder.encode(peak, forKey: PropertyKey.peakKey)
         
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let category1 = aDecoder.decodeObjectForKey(PropertyKey.category1Key) as! String
-        let category2 = aDecoder.decodeObjectForKey(PropertyKey.category2Key) as? String
-        let selection1 = aDecoder.decodeObjectForKey(PropertyKey.selection1Key) as! String
-        let selection2 = aDecoder.decodeObjectForKey(PropertyKey.category1Key) as? String
-        let selection3 = aDecoder.decodeObjectForKey(PropertyKey.category1Key) as? String
-        let mucusType = aDecoder.decodeObjectForKey(PropertyKey.mucusTypeKey) as! String
-        let heart = aDecoder.decodeBoolForKey(PropertyKey.heartKey)
-        let lubrication = aDecoder.decodeBoolForKey(PropertyKey.lubricationKey)
-        let date = aDecoder.decodeObjectForKey(PropertyKey.dateKey) as! NSDate
-        let color = aDecoder.decodeObjectForKey(PropertyKey.colorKey) as! String
-        let fertile = aDecoder.decodeBoolForKey(PropertyKey.fertileKey)
-        let peak = aDecoder.decodeBoolForKey(PropertyKey.peakKey)
+        let category1 = aDecoder.decodeObject(forKey: PropertyKey.category1Key) as! String
+        let category2 = aDecoder.decodeObject(forKey: PropertyKey.category2Key) as? String
+        let selection1 = aDecoder.decodeObject(forKey: PropertyKey.selection1Key) as! String
+        let selection2 = aDecoder.decodeObject(forKey: PropertyKey.category1Key) as? String
+        let selection3 = aDecoder.decodeObject(forKey: PropertyKey.category1Key) as? String
+        let mucusType = aDecoder.decodeObject(forKey: PropertyKey.mucusTypeKey) as! String
+        let heart = aDecoder.decodeBool(forKey: PropertyKey.heartKey)
+        let lubrication = aDecoder.decodeBool(forKey: PropertyKey.lubricationKey)
+        let date = aDecoder.decodeObject(forKey: PropertyKey.dateKey) as! Date
+        let color = aDecoder.decodeObject(forKey: PropertyKey.colorKey) as! String
+        let fertile = aDecoder.decodeBool(forKey: PropertyKey.fertileKey)
+        let peak = aDecoder.decodeBool(forKey: PropertyKey.peakKey)
         
         self.init(category1:category1, category2: category2, selection1: selection1, selection2: selection2, selection3: selection3, mucusType: mucusType, heart:heart, lubrication: lubrication, date:date, color:color, fertile:fertile, peak:peak)
         
@@ -257,8 +257,8 @@ class Day: NSObject, NSCoding {
     
     // MARK: Archiving Paths
     
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("days")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("days")
 
     // MARK: Utility methods
     

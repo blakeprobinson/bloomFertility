@@ -10,14 +10,14 @@ import UIKit
 
 class cycleTableViewCell: UITableViewCell {
     
-    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet fileprivate weak var collectionView: UICollectionView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -25,13 +25,22 @@ class cycleTableViewCell: UITableViewCell {
     
     
     func setCollectionViewDataSourceDelegate
-        <D: protocol<UICollectionViewDataSource, UICollectionViewDelegate>>
-        (dataSourceDelegate: D, forRow row: Int) {
+        (_ delegate: UICollectionViewDelegate, _ dataSource: UICollectionViewDataSource, forRow row: Int) {
         
-        collectionView.delegate = dataSourceDelegate
-        collectionView.dataSource = dataSourceDelegate
+        collectionView.delegate = delegate
+        collectionView.dataSource = dataSource
         collectionView.tag = row
+        collectionView.setContentOffset(collectionView.contentOffset, animated:false) // Stops collection view if it was scrolling.
         collectionView.reloadData()
     }
+    
+//    func prepareCollectionView(_ delegate: UICollectionViewDelegate, _ dataSource: UICollectionViewDataSource, forRow row: Int) {
+//        //Or func prepareCollectionView(_ delegateAndDataSource: UICollectionViewDelegate & UICollectionViewDataSource, forRow row: Int) {
+//        collectionView.delegate = delegate
+//        collectionView.dataSource = dataSource
+//        collectionView.tag = row
+//        collectionView.setContentOffset(collectionView.contentOffset, animated:false) // Stops collection view if it was scrolling.
+//        collectionView.reloadData()
+//    }
 
 }

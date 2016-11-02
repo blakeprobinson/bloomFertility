@@ -15,7 +15,7 @@ class StrikeThroughText: UILabel {
     // A Boolean value that determines whether the label should have a strikethrough.
     var strikeThrough : Bool {
         didSet {
-            strikeThroughLayer.hidden = !strikeThrough
+            strikeThroughLayer.isHidden = !strikeThrough
             if strikeThrough {
                 resizeStrikeThrough()
             }
@@ -28,8 +28,8 @@ class StrikeThroughText: UILabel {
     
     override init(frame: CGRect) {
         strikeThroughLayer = CALayer()
-        strikeThroughLayer.backgroundColor = UIColor.whiteColor().CGColor
-        strikeThroughLayer.hidden = true
+        strikeThroughLayer.backgroundColor = UIColor.white.cgColor
+        strikeThroughLayer.isHidden = true
         strikeThrough = false
         
         super.init(frame: frame)
@@ -43,7 +43,7 @@ class StrikeThroughText: UILabel {
     
     let kStrikeOutThickness: CGFloat = 2.0
     func resizeStrikeThrough() {
-        let textSize = text!.sizeWithAttributes([NSFontAttributeName:font])
+        let textSize = text!.size(attributes: [NSFontAttributeName:font])
         strikeThroughLayer.frame = CGRect(x: 0, y: bounds.size.height/2,
                                           width: textSize.width, height: kStrikeOutThickness)
     }
