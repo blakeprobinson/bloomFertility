@@ -33,6 +33,12 @@ class Day: NSObject, NSCoding {
                     print("Failed to save days...")
                 }
             }
+        } else {
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path!)
+            
+            if !isSuccessfulSave {
+                print("Failed to save days...")
+            }
         }
         
     }
@@ -88,7 +94,7 @@ class Day: NSObject, NSCoding {
         if let daysWrapped = NSKeyedUnarchiver.unarchiveObjectWithFile(Day.ArchiveURL.path!) as? [Day] {
             days = daysWrapped
             
-            for day in days {
+            for (index,day) in days.enumerate() {
                 //if today is red but yesterday was not
                 if day.color == "red" && previousDayNotRed {
                     if cycleArray.count > 0 {
@@ -96,16 +102,21 @@ class Day: NSObject, NSCoding {
                         cycleArray = [Day]()
                         cycleArray.append(day)
                         previousDayNotRed = false
+                    } else {
+                        cycleArray.append(day)
+                        previousDayNotRed = false
                     }
-                    //else not getting added
                 } else {
                     cycleArray.append(day)
                     previousDayNotRed = true
+                    if index == days.count-1 {
+                        arrayOfCycles.append(cycleArray)
+                    }
                 }
             }
             
         } else {
-            arrayOfCycles = loadSampleDays()
+            //arrayOfCycles = loadSampleDays()
         }
         
         
@@ -121,7 +132,7 @@ class Day: NSObject, NSCoding {
         let date2 = NSDate(dateString:"09/25/2016")
         let day2 = Day(category1: "Bleeding", category2: nil, selection1: "heavy", selection2: nil, selection3: nil, mucusType:"non-peak", heart: false, lubrication: false, date: date2, color:"red", fertile:true, peak:false)!
         
-        let date3 = NSDate(dateString:"09/25/2016")
+        let date3 = NSDate(dateString:"09/24/2016")
         let day3 = Day(category1: "Bleeding", category2: nil, selection1: "heavy", selection2: nil, selection3: nil, mucusType:"peak", heart: false, lubrication: false, date: date3, color:"white", fertile:true, peak: true)!
         
         var days = [[Day]]()
