@@ -105,6 +105,12 @@ class Day: NSObject, NSCoding {
                     } else {
                         cycleArray.append(day)
                         previousDayNotRed = false
+                        //if the day is the last day in the
+                        //array then add the cycle array
+                        //to the array of cycles
+                        if index == days.count-1 {
+                            arrayOfCycles.append(cycleArray)
+                        }
                     }
                 } else {
                     cycleArray.append(day)
