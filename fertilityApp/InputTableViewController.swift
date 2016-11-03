@@ -10,10 +10,8 @@ import UIKit
 
 class InputTableViewController: UITableViewController, TableViewCellDelegate {
     @IBOutlet var inputTableView: UITableView!
-    var fertilityInputs = [FertilityInput]() //MenuData.categoryData()
-    var dryInputs = [FertilityInput]()
-    var bleedingInputs = [FertilityInput]()
-    var mucusInputs = [FertilityInput]()
+    var menuData = MenuData()
+    
     var validationLabel = UILabel()
     var heartTouched = false
     var lubricationSelected = false
@@ -23,19 +21,9 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if fertilityInputs.count > 0 {
-            return
-        }
-        
         if let savedDays = loadDays() {
             days += savedDays
         }
-        
-        fertilityInputs = MenuData.categoryData()
-        dryInputs = MenuData.drySubCategory()
-        bleedingInputs = MenuData.bleedingSubCategory()
-        mucusInputs = MenuData.mucusSubCategory()
-    
         
         inputTableView.separatorStyle = .none
         inputTableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
@@ -99,7 +87,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     func saveButtonAction(_ sender: UIButton!) {
         validationLabel.text = ""
         var selectedArray = [FertilityInput]()
-        for (index, element) in fertilityInputs.enumerated() {
+        for (_, element) in menuData.fertilityInputs.enumerated() {
             if element.selected && !element.isCategory {
                 selectedArray.append(element)
             }
@@ -116,7 +104,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         if validationLabel.text == "" {
             addNewUserInput(selectedArray)
             saveDays()
-            for (index, element) in fertilityInputs.enumerated() {
+            for (_, element) in menuData.fertilityInputs.enumerated() {
             
                 element.selected = false;
             }
@@ -220,7 +208,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     }
 
     func fertilityInputCategoryDeselected(_ FertilityInput:FertilityInput) {
-        let index = (fertilityInputs as NSArray).index(of: FertilityInput)
+        let index = (menuData.fertilityInputs as NSArray).index(of: FertilityInput)
         if index == NSNotFound { return }
         
         // use the UITableView to animate the removal of this row
@@ -252,9 +240,9 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     
     func removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(_ category: String) ->  [IndexPath]{
         var indexPathArray = [IndexPath]()
-        for (index, element) in fertilityInputs.enumerated().reversed() {
+        for (index, element) in menuData.fertilityInputs.enumerated().reversed() {
             if element.category == category {
-                fertilityInputs.remove(at: index)
+                menuData.fertilityInputs.remove(at: index)
                 let indexPath = IndexPath(row: index, section: 0)
                 indexPathArray.append(indexPath)
             }
@@ -262,31 +250,31 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         return indexPathArray
     }
     
-    func fertilityInputSelected(_ FertilityInput: FertilityInput) {
+    func fertilityInputSelected(_ fertilityInput: FertilityInput) {
         //if the selected cell is a higher level category
-        if FertilityInput.isCategory == true {
-            switch FertilityInput.name {
+        if fertilityInput.isCategory == true {
+            switch fertilityInput.name {
                 case "Dry":
-                    addSubInputsToFertilityArray(dryInputs)
+                    addSubInputsToFertilityArray(menuData.dryInputs)
                 case "Mucus":
-                    addSubInputsToFertilityArray(mucusInputs)
+                    addSubInputsToFertilityArray(menuData.mucusInputs)
                 case "Lubrication":
                     print("Lubrication Selected")
                 default:
-                    addSubInputsToFertilityArray(bleedingInputs)
+                    addSubInputsToFertilityArray(menuData.bleedingInputs)
             }
         }
     }
     
     func addSubInputsToFertilityArray(_ subArray: [FertilityInput]) {
         var indexPaths = [IndexPath]()
-        for (index, element) in fertilityInputs.enumerated() {
+        for (index, element) in menuData.fertilityInputs.enumerated() {
             //if the subArray is the category of the fertilityInput
             if element.name == subArray[0].category {
                 //aadd the elements of the subArray to FertilityInput
                 var insertIndex = index + 1
                 for subArrayElement in subArray {
-                    fertilityInputs.insert(subArrayElement, at: insertIndex)
+                    menuData.fertilityInputs.insert(subArrayElement, at: insertIndex)
                     let indexPath = IndexPath(row: insertIndex, section: 0)
                     indexPaths.append(indexPath)
                     insertIndex += 1
@@ -307,16 +295,20 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return fertilityInputs.count
+        return menuData.fertilityInputs.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
+        let initialCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        guard let cell = initialCell as? TableViewCell else {
+            return initialCell
+        }
         
         //cell.textLabel?.backgroundColor = UIColor.clearColor()
         
-        let fertilityInput = fertilityInputs[indexPath.row]
+        let fertilityInput = menuData.fertilityInputs[indexPath.row]
         //cell.textLabel?.text = fertilityInput.name
         cell.selectionStyle = .none
         cell.delegate = self
@@ -328,7 +320,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if fertilityInputs[indexPath.row].isCategory {
+        if menuData.fertilityInputs[indexPath.row].isCategory {
             return 75.0
         } else {
             return 50.0

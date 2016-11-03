@@ -9,6 +9,15 @@
 import Foundation
 
 struct MenuData {
+    var fertilityInputs = MenuData.categoryData()
+    var dryInputs = MenuData.drySubCategory()
+    var bleedingInputs = MenuData.bleedingSubCategory()
+    var mucusInputs = MenuData.mucusSubCategory()
+}
+
+// MARK: Static Data
+
+private extension MenuData {
     
     static func categoryData() -> [FertilityInput] {
         return [FertilityInput(name: "Dry", isCategory: true, category: "none", isLength:false),
