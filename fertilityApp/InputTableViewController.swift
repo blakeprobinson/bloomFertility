@@ -251,39 +251,8 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     }
     
     func fertilityInputSelected(_ fertilityInput: FertilityInput) {
-        //if the selected cell is a higher level category
-        if fertilityInput.isCategory == true {
-            switch fertilityInput.name {
-                case "Dry":
-                    addSubInputsToFertilityArray(menuData.dryInputs)
-                case "Mucus":
-                    addSubInputsToFertilityArray(menuData.mucusInputs)
-                case "Lubrication":
-                    print("Lubrication Selected")
-                default:
-                    addSubInputsToFertilityArray(menuData.bleedingInputs)
-            }
-        }
-    }
-    
-    func addSubInputsToFertilityArray(_ subArray: [FertilityInput]) {
-        var indexPaths = [IndexPath]()
-        for (index, element) in menuData.fertilityInputs.enumerated() {
-            //if the subArray is the category of the fertilityInput
-            if element.name == subArray[0].category {
-                //aadd the elements of the subArray to FertilityInput
-                var insertIndex = index + 1
-                for subArrayElement in subArray {
-                    menuData.fertilityInputs.insert(subArrayElement, at: insertIndex)
-                    let indexPath = IndexPath(row: insertIndex, section: 0)
-                    indexPaths.append(indexPath)
-                    insertIndex += 1
-                }
-            }
-        }
-        inputTableView.beginUpdates()
-        inputTableView.insertRows(at: indexPaths, with: .bottom)
-        inputTableView.endUpdates()
+        menuData.selected(input: fertilityInput)
+        inputTableView.reloadData()
     }
 
     // MARK: - Table view data source

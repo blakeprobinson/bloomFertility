@@ -10,9 +10,46 @@ import Foundation
 
 struct MenuData {
     var fertilityInputs = MenuData.categoryData()
-    var dryInputs = MenuData.drySubCategory()
-    var bleedingInputs = MenuData.bleedingSubCategory()
-    var mucusInputs = MenuData.mucusSubCategory()
+    private var dryInputs = MenuData.drySubCategory()
+    private var bleedingInputs = MenuData.bleedingSubCategory()
+    private var mucusInputs = MenuData.mucusSubCategory()
+    
+    mutating func selected(input fertilityInput: FertilityInput) {
+        if fertilityInput.isCategory == true {
+            switch fertilityInput.name {
+            case "Dry":
+                addSubInputsToFertilityArray(dryInputs)
+            case "Mucus":
+                addSubInputsToFertilityArray(mucusInputs)
+            case "Lubrication":
+                print("Lubrication Selected")
+            default:
+                addSubInputsToFertilityArray(bleedingInputs)
+            }
+        }
+    }
+}
+
+// MARK: Private Helpers
+
+private extension MenuData {
+    
+    mutating func addSubInputsToFertilityArray(_ subArray: [FertilityInput]) {
+        var indexPaths = [IndexPath]()
+        for (index, element) in fertilityInputs.enumerated() {
+            //if the subArray is the category of the fertilityInput
+            if element.name == subArray[0].category {
+                //aadd the elements of the subArray to FertilityInput
+                var insertIndex = index + 1
+                for subArrayElement in subArray {
+                    fertilityInputs.insert(subArrayElement, at: insertIndex)
+                    let indexPath = IndexPath(row: insertIndex, section: 0)
+                    indexPaths.append(indexPath)
+                    insertIndex += 1
+                }
+            }
+        }
+    }
 }
 
 // MARK: Static Data
