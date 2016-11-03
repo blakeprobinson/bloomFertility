@@ -10,7 +10,7 @@ import UIKit
 
 class InputTableViewController: UITableViewController, TableViewCellDelegate {
     @IBOutlet var inputTableView: UITableView!
-    var fertilityInputs = [FertilityInput]()
+    var fertilityInputs = [FertilityInput]() //MenuData.categoryData()
     var dryInputs = [FertilityInput]()
     var bleedingInputs = [FertilityInput]()
     var mucusInputs = [FertilityInput]()
@@ -31,11 +31,8 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
             days += savedDays
         }
         
-        //
-        fertilityInputs.append(FertilityInput(name: "Dry", isCategory: true, category: "none", isLength:false))
-        fertilityInputs.append(FertilityInput(name: "Bleeding", isCategory: true, category: "none", isLength:false))
-        fertilityInputs.append(FertilityInput(name: "Mucus", isCategory: true, category: "none", isLength:false))
-        fertilityInputs.append(FertilityInput(name: "Lubrication", isCategory: true, category: "none", isLength:false))
+        fertilityInputs = MenuData.categoryData()
+        
         bleedingInputs.append(FertilityInput(name: "Heavy", isCategory: false, category: "Bleeding", isLength:false))
         bleedingInputs.append(FertilityInput(name: "Moderate", isCategory: false, category: "Bleeding", isLength:false))
         bleedingInputs.append(FertilityInput(name: "Light", isCategory: false, category: "Bleeding", isLength:false))
@@ -55,7 +52,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         mucusInputs.append(FertilityInput(name: "Yellow", isCategory: false, category: "Mucus", isLength:false))
         mucusInputs.append(FertilityInput(name: "Brown", isCategory: false, category: "Mucus", isLength:false))
         mucusInputs.append(FertilityInput(name: "Pasty", isCategory: false, category: "Mucus", isLength:false))
-
+        
         inputTableView.separatorStyle = .none
         inputTableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
         inputTableView.backgroundColor = UIColor.white

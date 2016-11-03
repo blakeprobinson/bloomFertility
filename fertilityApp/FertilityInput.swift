@@ -23,6 +23,7 @@ class FertilityInput: NSObject {
         self.category = category
         self.selected = false
         self.isLength = isLength
+        super.init()
     }
 
 }
