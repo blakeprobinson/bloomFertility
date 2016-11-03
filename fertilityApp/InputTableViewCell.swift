@@ -23,7 +23,7 @@ class TableViewCell: UITableViewCell {
     var deselectOnDragRelease = false
     var tickLabel: UILabel!, crossLabel: UILabel!
     var selectOnDragRelease = false
-    let label: StrikeThroughText
+    let label: UILabel
     var itemCompleteLayer = CALayer()
     
     // The object that acts as delegate for this cell.
@@ -43,7 +43,7 @@ class TableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         // create a label that renders the to-do item text
-        label = StrikeThroughText(frame: CGRect.null)
+        label = UILabel(frame: CGRect.null)
         label.textColor = UIColor.white
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.backgroundColor = UIColor.clear
