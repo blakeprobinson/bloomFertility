@@ -11,8 +11,8 @@ import QuartzCore
 
 protocol TableViewCellDelegate {
     // indicates that the given item has been deleted
-    func fertilityInputCategoryDeselected(_ fertilityInput: fertilityInput)
-    func fertilityInputSelected(_ fertilityInput: fertilityInput)
+    func fertilityInputCategoryDeselected(_ fertilityInput: FertilityInput)
+    func fertilityInputSelected(_ fertilityInput: FertilityInput)
 }
 
 class TableViewCell: UITableViewCell {
@@ -29,7 +29,7 @@ class TableViewCell: UITableViewCell {
     // The object that acts as delegate for this cell.
     var delegate: TableViewCellDelegate?
     // The item that this cell renders.
-    var FertilityInput: fertilityInput? {
+    var FertilityInput: FertilityInput? {
         didSet {
             label.text = FertilityInput!.name
 //            label.strikeThrough = FertilityInput!.selected
