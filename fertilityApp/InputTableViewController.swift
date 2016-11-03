@@ -32,26 +32,10 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         }
         
         fertilityInputs = MenuData.categoryData()
-        
-        bleedingInputs.append(FertilityInput(name: "Heavy", isCategory: false, category: "Bleeding", isLength:false))
-        bleedingInputs.append(FertilityInput(name: "Moderate", isCategory: false, category: "Bleeding", isLength:false))
-        bleedingInputs.append(FertilityInput(name: "Light", isCategory: false, category: "Bleeding", isLength:false))
-        bleedingInputs.append(FertilityInput(name: "Very Light", isCategory: false, category: "Bleeding", isLength:false))
-        bleedingInputs.append(FertilityInput(name: "Brown", isCategory: false, category: "Bleeding", isLength:false))
-        
-        dryInputs.append(FertilityInput(name: "Damp", isCategory: false, category: "Dry", isLength:false))
-        dryInputs.append(FertilityInput(name: "Shiny", isCategory: false, category: "Dry", isLength:false))
-        dryInputs.append(FertilityInput(name: "Wet", isCategory: false, category: "Dry", isLength:false))
-        
-        mucusInputs.append(FertilityInput(name: "1/4 Inch", isCategory: false, category: "Mucus", isLength: true))
-        mucusInputs.append(FertilityInput(name: "1/2 to 3/4 inch", isCategory: false, category: "Mucus", isLength: true))
-        mucusInputs.append(FertilityInput(name: "Greater than 1 inch", isCategory: false, category: "Mucus", isLength: true))
-        mucusInputs.append(FertilityInput(name: "Clear", isCategory: false, category: "Mucus", isLength:false))
-        mucusInputs.append(FertilityInput(name: "Cloudy/Clear", isCategory: false, category: "Mucus", isLength:false))
-        mucusInputs.append(FertilityInput(name: "Cloudy", isCategory: false, category: "Mucus", isLength:false))
-        mucusInputs.append(FertilityInput(name: "Yellow", isCategory: false, category: "Mucus", isLength:false))
-        mucusInputs.append(FertilityInput(name: "Brown", isCategory: false, category: "Mucus", isLength:false))
-        mucusInputs.append(FertilityInput(name: "Pasty", isCategory: false, category: "Mucus", isLength:false))
+        dryInputs = MenuData.drySubCategory()
+        bleedingInputs = MenuData.bleedingSubCategory()
+        mucusInputs = MenuData.mucusSubCategory()
+    
         
         inputTableView.separatorStyle = .none
         inputTableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
