@@ -10,6 +10,8 @@ import Foundation
 
 struct MenuData {
     var fertilityInputs = MenuData.categoryData()
+    var lubricationSelected = false
+    var heartTouched = false
     private var dryInputs = MenuData.drySubCategory()
     private var bleedingInputs = MenuData.bleedingSubCategory()
     private var mucusInputs = MenuData.mucusSubCategory()

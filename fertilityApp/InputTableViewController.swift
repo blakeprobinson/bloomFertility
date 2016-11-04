@@ -13,8 +13,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     var menuData = MenuData()
     
     var validationLabel = UILabel()
-    var heartTouched = false
-    var lubricationSelected = false
     var date = Date()
     var days = [Day]()
 
@@ -76,7 +74,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     // MARK: TableView and related
     
     func heartButtonAction(_ sender: UIButton!) {
-        heartTouched = !heartTouched
+        menuData.heartTouched = !menuData.heartTouched
     }
     
     func datePickerValueChanged(_ sender: UIDatePicker){
@@ -94,7 +92,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
             //Since lubrication is a category with no items in it we need this
             //conditional
             if element.name == "Lubrication" {
-                lubricationSelected = true
+                menuData.lubricationSelected = true
             }
         }
         //Validate inputs, which also sorts them
@@ -231,8 +229,8 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
                              selection2: currentUserInput["selection2"]!,
                              selection3: currentUserInput["selection3"]!,
                              mucusType:mucusType,
-                             heart: heartTouched,
-                             lubrication: lubricationSelected,
+                             heart: menuData.heartTouched,
+                             lubrication: menuData.lubricationSelected,
                              date: date,
                              color: color,
                              fertile:fertile,
@@ -333,7 +331,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     func isFertile(_ currentUserInput:Dictionary<String, String>) ->Bool {
         var isFertile:Bool = false
         
-        if lubricationSelected {
+        if menuData.lubricationSelected {
             isFertile = true
         } else if currentUserInput["category1"] == "Mucus" || currentUserInput["category2"] == "Mucus" {
             isFertile = true
@@ -392,7 +390,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     func findMucusType(_ currentUserInput:Dictionary<String, String>) ->String {
         var mucusType:String = ""
         
-        if lubricationSelected {
+        if menuData.lubricationSelected {
             mucusType = "peak"
         
         } else if currentUserInput["selection1"] == "Greater than 1 inch" || currentUserInput["selection1"] == "Clear" || currentUserInput["selection1"] == "Cloudy/Clear" {
