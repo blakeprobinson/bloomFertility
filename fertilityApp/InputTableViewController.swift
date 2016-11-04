@@ -11,6 +11,7 @@ import UIKit
 class InputTableViewController: UITableViewController, TableViewCellDelegate {
     @IBOutlet var inputTableView: UITableView!
     var menuData = MenuData()
+    var persistMenuData = PersistMenuData()
     
     var validationLabel = UILabel()
     var date = Date()
@@ -169,7 +170,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     
     func addNewUserInput(_ selectedArray: [FertilityInput]) {
         
-        var currentUserInput:Dictionary = selectedArrayToUserInput(selectedArray)
+        let currentUserInput:Dictionary = persistMenuData.selectedArrayToUserInput(selectedArray)
         
         let fertile:Bool = isFertile(currentUserInput)
         let mucusType:String = findMucusType(currentUserInput)
@@ -233,60 +234,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         }
         return color
         
-    }
-    
-    func selectedArrayToUserInput(_ selectedArray:[FertilityInput]) -> Dictionary<String, String> {
-        
-        var userInput: [String:String] = Dictionary()
-        
-        switch selectedArray.count {
-        case 1:
-            userInput = [
-                "category1": selectedArray[0].category,
-                "selection1":selectedArray[0].name,
-                "category2": "",
-                "selection2": "",
-                "selection3": ""
-            ]
-        case 2:
-            if selectedArray[0].category != selectedArray[1].category {
-                userInput = [
-                    "category1": selectedArray[0].category,
-                    "selection1":selectedArray[0].name,
-                    "category2": selectedArray[1].category,
-                    "selection2":selectedArray[1].name,
-                    "selection3": ""
-                ]
-            } else {
-                userInput = [
-                    "category1": selectedArray[0].category,
-                    "category2": "",
-                    "selection1":selectedArray[0].name,
-                    "selection2":selectedArray[1].name,
-                    "selection3": ""
-                ]
-            }
-        default:
-            if selectedArray[0].category != selectedArray[1].category {
-                userInput = [
-                    "category1": selectedArray[0].category,
-                    "selection1":selectedArray[0].name,
-                    "category2": selectedArray[1].category,
-                    "selection2":selectedArray[1].name,
-                    "selection3":selectedArray[2].name
-                ]
-            } else {
-                userInput = [
-                    "category1": selectedArray[0].category,
-                    "category2": selectedArray[2].category,
-                    "selection1":selectedArray[0].name,
-                    "selection2":selectedArray[1].name,
-                    "selection3":selectedArray[2].name
-                ]
-            }
-            
-        }
-        return userInput
     }
     
     func isFertile(_ currentUserInput:Dictionary<String, String>) ->Bool {
