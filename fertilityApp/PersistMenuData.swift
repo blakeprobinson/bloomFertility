@@ -10,11 +10,7 @@ import Foundation
 
 struct PersistMenuData {
     
-//    var days = [Day]()
     var days = PersistMenuData.fetchDays()
-//    if let savedDays = PersistMenuData.fetchDays() {
-//        days += savedDays
-//    }
 
     func selectedArrayToUserInput(_ selectedArray:[FertilityInput]) -> Dictionary<String, String> {
         

@@ -20,10 +20,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if let savedDays = PersistMenuData.fetchDays() {
-//            days += savedDays
-//        }
-        
         inputTableView.separatorStyle = .none
         inputTableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
         inputTableView.backgroundColor = UIColor.white
@@ -236,102 +232,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         
     }
     
-//    func isFertile(_ currentUserInput:Dictionary<String, String>) ->Bool {
-//        var isFertile:Bool = false
-//        
-//        if menuData.lubricationSelected {
-//            isFertile = true
-//        } else if currentUserInput["category1"] == "Mucus" || currentUserInput["category2"] == "Mucus" {
-//            isFertile = true
-//        } else if isFertileBasedOnPastMucus() {
-//            isFertile = true
-//        }
-//        
-//        //else if three days in a row of nonpeak mucus exist three days or less ago, then this day is fertile
-//        
-//        //else if peak mucus exists three days or less ago
-//        
-//        return isFertile
-//    }
-    
-//    func isFertilePastNonPeakMucus() -> Bool {
-//        
-//        //for non-peak mucus check
-//        //look at the last five days to see if a consecutive
-//        //string of three non-peak mucus days exists.
-//        
-//        var isFertile:Bool = false
-//        
-//        let daysCount = days.count
-//        
-//        if daysCount > 0 {
-//            //just iterate through last five elements
-//            let lastIteration = daysCount > 4 ? daysCount - 5 : 0
-//            // user iterator to track fertile stuff
-//            var firstNonPeakMucus:Bool = false
-//            var secondNonPeakMucus:Bool = false
-//            
-//            for i in (lastIteration ..< daysCount).reversed() {
-//                
-//                if days[i].mucusType == "non-peak" {
-//                    if firstNonPeakMucus {
-//                        if secondNonPeakMucus {
-//                            isFertile = true
-//                            break
-//                        } else {
-//                            secondNonPeakMucus = true
-//                        }
-//                    } else {
-//                        firstNonPeakMucus = true
-//                    }
-//                } else {
-//                    firstNonPeakMucus = false
-//                    secondNonPeakMucus = false
-//                }
-//            }
-//            
-//        }
-//        
-//        return isFertile
-//    }
-    
-    
-//    func isFertileBasedOnPastMucus() -> Bool {
-//        var isFertile:Bool = false
-//        
-//        if isFertilePastPeakMucus() {
-//            isFertile = true
-//        }
-//        else if isFertilePastNonPeakMucus() {
-//            isFertile = true
-//        }
-//        
-//        return isFertile
-//    }
-    
-//    func isFertilePastPeakMucus() -> Bool {
-//        //for peak mucus check
-//        //look at the last three days in the list
-//        //if any of the days
-//        
-//        var isFertile:Bool = false
-//        
-//        let daysCount = days.count
-//        
-//        if daysCount > 0 {
-//            //just iterate through last three elements
-//            let lastIteration = daysCount > 2 ? daysCount - 3 : 0
-//            
-//            for i in (lastIteration ..< daysCount).reversed() {
-//                if days[i].mucusType == "peak" {
-//                    isFertile = true
-//                    break
-//                }
-//            }
-//        }
-//        
-//        return isFertile
-//    }
     
     // MARK: NSCoding
     
@@ -339,7 +239,4 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         Day.saveDays(days)
     }
     
-//    func loadDays() -> [Day]? {
-//        return NSKeyedUnarchiver.unarchiveObject(withFile: Day.ArchiveURL.path) as? [Day]
-//    }
 }
