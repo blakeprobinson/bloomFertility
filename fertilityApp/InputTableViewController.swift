@@ -174,7 +174,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         //check to see if previous day is peak
         //if so, change bool to peak.
         
-        markPreviousDayAsPeakIfNecessary(mucusType)
+        persistMenuData.markPreviousDayAsPeakIfNecessary(mucusType, date:date)
         //When can you know that peak type mucus is over?  the next day?
         //two days later?
         let color:String = determineColor(currentUserInput)
@@ -199,24 +199,24 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         }
     }
     
-    func markPreviousDayAsPeakIfNecessary(_ mucusType:String) {
-        if mucusType == "" || mucusType == "non-peak" {
-            //check last day for peak mucus
-            let daysCount = days.count
-            for i in (0 ..< daysCount).reversed() {
-                //If current date is after date in days array,
-                // stop loop and return date iterating
-                if date.compare(days[i].date as Date) == ComparisonResult.orderedAscending {
-                    if days[i].mucusType == "peak" {
-                        days[i].peak = true;
-                        break
-                    }
-                }
-                
-            }
-            
-        }
-    }
+//    func markPreviousDayAsPeakIfNecessary(_ mucusType:String) {
+//        if mucusType == "" || mucusType == "non-peak" {
+//            //check last day for peak mucus
+//            let daysCount = days.count
+//            for i in (0 ..< daysCount).reversed() {
+//                //If current date is after date in days array,
+//                // stop loop and return date iterating
+//                if date.compare(days[i].date as Date) == ComparisonResult.orderedAscending {
+//                    if days[i].mucusType == "peak" {
+//                        days[i].peak = true;
+//                        break
+//                    }
+//                }
+//                
+//            }
+//            
+//        }
+//    }
     
     func determineColor(_ currentUserInput:Dictionary <String,String>) -> String {
         var color:String = "green"

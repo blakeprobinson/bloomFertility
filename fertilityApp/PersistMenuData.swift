@@ -186,6 +186,25 @@ struct PersistMenuData {
         return isFertile
     }
     
+    func markPreviousDayAsPeakIfNecessary(_ mucusType:String, date:Date) {
+        if mucusType == "" || mucusType == "non-peak" {
+            //check last day for peak mucus
+            let daysCount = days.count
+            for i in (0 ..< daysCount).reversed() {
+                //If current date is after date in days array,
+                // stop loop and return date iterating
+                if date.compare(days[i].date as Date) == ComparisonResult.orderedAscending {
+                    if days[i].mucusType == "peak" {
+                        days[i].peak = true;
+                        break
+                    }
+                }
+                
+            }
+            
+        }
+    }
+    
 }
 
 extension PersistMenuData {
