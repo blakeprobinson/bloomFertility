@@ -98,7 +98,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
             }
         }
         //Validate inputs, which also sorts them
-        validationLabel.text = validateInputs(selectedArray)
+        validationLabel.text = menuData.validateInputs(selectedArray)
         
         //If no validation label is generated, then inputs are valid.
         if validationLabel.text == "" {
@@ -117,94 +117,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         }
         
         
-    }
-    
-    func validateInputs(_ selectedArray:[FertilityInput]) -> String {
-        var selectedArray = selectedArray
-        var validationText = ""
-        let arrayCount =  selectedArray.count
-        selectedArray.sort { $0.category < $1.category }
-        var categoryZero = String()
-        var categoryOne = String()
-        if arrayCount > 0 {
-            categoryZero = selectedArray[0].category
-        }
-        if arrayCount > 1 {
-            categoryOne = selectedArray[1].category
-        }
-        
-        switch arrayCount {
-        case 0:
-            validationText = "I think you forgot to choose an option ;)"
-        case 1:
-            if categoryZero == "Mucus" {
-                if selectedArray[0].isLength {
-                    validationText = "Please select a color for the mucus, too"
-                } else {
-                    validationText = "Please select a length for the mucus, too"
-                }
-            }
-        case 2:
-            //case 1 one each from two different categories
-            if categoryZero != categoryOne {
-                //validate that one element is bleeding - very light/brown and the
-                //the situation could be needing to select a length or a color in mucus...
-                if categoryZero == "Bleeding" && categoryOne == "Mucus" {
-                    if selectedArray[0].name == "Light" || selectedArray[0].name == "Very Light" || selectedArray[0].name == "Brown" {
-                        if selectedArray[1].isLength {
-                            //please select a color
-                        } else {
-                            //please select a length
-                        }
-                    }
-                } else {
-                    validationText = "Dry doesn't work with any other option ;)"
-                }
-            } else {
-                //case 2 two from "Bleeding", but not one length and one color
-                if categoryZero == "Bleeding" {
-                    
-                    if selectedArray[0].isLength && selectedArray[1].isLength {
-                        validationText = "Please select a color instead of one of the lengths you selected."
-                    } else if !selectedArray[0].isLength && !selectedArray[1].isLength {
-                        validationText = "Please select a length instead of one of the colors you selected."
-                    }
-                } else if categoryZero == "Mucus" {
-                    if selectedArray[0].isLength && !selectedArray[1].isLength {
-                        
-                    } else if !selectedArray[0].isLength && selectedArray[1].isLength {
-                        
-                    } else {
-                        validationText = "Please select one length and one color from the mucus category."
-                    }
-                } else {
-                    //case 3 two from the same category, but not "bleeding"
-                    validationText = "You can only choose one from the Dry and Bleeding categories."
-                    
-                }
-            }
-        case 3:
-            let firstFertilityInput = selectedArray[0]
-            let secondFertilityInput = selectedArray[1]
-            let thirdFertilityInput = selectedArray[2]
-            if firstFertilityInput.name == "Light" || firstFertilityInput.name == "Very Light" || firstFertilityInput.name == "Brown" {
-                //since a value of false for isLength could be another category besides mucus
-                //I am checking to make sure the category is mucus
-                if secondFertilityInput.isLength && !thirdFertilityInput.isLength && thirdFertilityInput.category == "Mucus" {
-                    
-                    
-                } else if !secondFertilityInput.isLength && secondFertilityInput.category == "Mucus" && thirdFertilityInput.isLength {
-                    
-                } else {
-                    validationText = "The only combination of three selections is Light, Very Light or Brown Bleeding and two Mucus selections"
-                }
-            }
-            
-        default:
-            validationText = "I think you've chosen at least one too many options ;)"
-            
-        }
-        return validationText
     }
 
     func fertilityInputCategoryDeselected(_ FertilityInput:FertilityInput) {
