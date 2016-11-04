@@ -127,39 +127,10 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         inputTableView.beginUpdates()
         
         //if indexPaths has a value then remove those indexPaths from the tableView
-        if let indexPaths = removeSubInputsFromFertilityArrayReturnIndexPaths(FertilityInput) {
+        if let indexPaths = menuData.removeSubInputsFromFertilityArrayReturnIndexPaths(FertilityInput) {
             inputTableView.deleteRows(at: indexPaths, with: .fade)
         }
         inputTableView.endUpdates()
-    }
-    
-    func removeSubInputsFromFertilityArrayReturnIndexPaths(_ FertilityInput: FertilityInput) -> [IndexPath]? {
-        if FertilityInput.isCategory == true {
-            switch FertilityInput.name {
-                
-            case "Dry":
-                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Dry")
-            case "Mucus":
-                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Mucus")
-            case "Lubrication":
-                return nil
-            default:
-                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Bleeding")
-            }
-        }
-        return nil
-    }
-    
-    func removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(_ category: String) ->  [IndexPath]{
-        var indexPathArray = [IndexPath]()
-        for (index, element) in menuData.fertilityInputs.enumerated().reversed() {
-            if element.category == category {
-                menuData.fertilityInputs.remove(at: index)
-                let indexPath = IndexPath(row: index, section: 0)
-                indexPathArray.append(indexPath)
-            }
-        }
-        return indexPathArray
     }
     
     func fertilityInputSelected(_ fertilityInput: FertilityInput) {
