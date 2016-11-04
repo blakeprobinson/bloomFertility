@@ -14,19 +14,21 @@ struct MenuData {
     private var bleedingInputs = MenuData.bleedingSubCategory()
     private var mucusInputs = MenuData.mucusSubCategory()
     
-    mutating func selected(input fertilityInput: FertilityInput) {
+    mutating func selected(input fertilityInput: FertilityInput) -> [IndexPath] {
+        var indexPaths = [IndexPath]()
         if fertilityInput.isCategory == true {
             switch fertilityInput.name {
             case "Dry":
-                addSubInputsToFertilityArray(dryInputs)
+                indexPaths = addSubInputsToFertilityArray(dryInputs)
             case "Mucus":
-                addSubInputsToFertilityArray(mucusInputs)
+                indexPaths = addSubInputsToFertilityArray(mucusInputs)
             case "Lubrication":
                 print("Lubrication Selected")
             default:
-                addSubInputsToFertilityArray(bleedingInputs)
+                indexPaths = addSubInputsToFertilityArray(bleedingInputs)
             }
         }
+        return indexPaths
     }
     
     mutating func removeSubInputsFromFertilityArrayReturnIndexPaths(_ FertilityInput: FertilityInput) -> [IndexPath]? {
@@ -140,7 +142,7 @@ struct MenuData {
 
 private extension MenuData {
     
-    mutating func addSubInputsToFertilityArray(_ subArray: [FertilityInput]) {
+    mutating func addSubInputsToFertilityArray(_ subArray: [FertilityInput]) -> [IndexPath] {
         var indexPaths = [IndexPath]()
         for (index, element) in fertilityInputs.enumerated() {
             //if the subArray is the category of the fertilityInput
@@ -155,6 +157,7 @@ private extension MenuData {
                 }
             }
         }
+        return indexPaths
     }
     
     mutating func removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(_ category: String) ->  [IndexPath]{

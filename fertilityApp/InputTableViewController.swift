@@ -134,8 +134,10 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     }
     
     func fertilityInputSelected(_ fertilityInput: FertilityInput) {
-        menuData.selected(input: fertilityInput)
-        inputTableView.reloadData()
+        let indexPaths = menuData.selected(input: fertilityInput)
+        inputTableView.beginUpdates()
+        inputTableView.insertRows(at: indexPaths, with: .bottom)
+        inputTableView.endUpdates()
     }
 
     // MARK: - Table view data source
