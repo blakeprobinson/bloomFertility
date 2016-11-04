@@ -29,11 +29,11 @@ class TableViewCell: UITableViewCell {
     // The object that acts as delegate for this cell.
     var delegate: TableViewCellDelegate?
     // The item that this cell renders.
-    var FertilityInput: FertilityInput? {
+    var fertilityInput: FertilityInput? {
         didSet {
-            label.text = FertilityInput!.name
-//            label.strikeThrough = FertilityInput!.selected
-            itemCompleteLayer.isHidden = !FertilityInput!.selected || FertilityInput!.isCategory
+            label.text = fertilityInput!.name
+            itemCompleteLayer.isHidden = !fertilityInput!.selected || fertilityInput!.isCategory
+            self.backgroundColor = colorForCell(fertilityInput!)
         }
     }
     
@@ -102,6 +102,31 @@ class TableViewCell: UITableViewCell {
                                   width: kUICuesWidth, height: bounds.size.height)
     }
     
+    func colorForCell(_ input: FertilityInput) -> UIColor {
+        var color:UIColor
+        switch input.category {
+        case "none":
+            switch input.name {
+            case "Dry":
+                color = UIColor(red: 93.0/255, green: 188.0/255, blue: 210.0/255, alpha: 1.0)
+            case "Bleeding":
+                color = UIColor(red: 255.0/255, green: 192.0/255, blue: 203.0/255, alpha: 1.0)
+            case "Lubrication":
+                //rgb(255,255,102)
+                color = UIColor(red: 255.0/255, green: 255.0/255, blue: 102.0/255, alpha: 1.0)
+            default:
+                color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
+            }
+        case "Dry":
+            color = UIColor(red: 93.0/255, green: 188.0/255, blue: 210.0/255, alpha: 1.0)
+        case "Bleeding":
+            color = UIColor(red: 255.0/255, green: 192.0/255, blue: 203.0/255, alpha: 1.0)
+        default:
+            color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
+        }
+        return color
+    }
+    
     // utility method for creating the contextual cues
     func createCueLabel() -> UILabel {
         let label = UILabel(frame: CGRect.null)
@@ -141,27 +166,27 @@ class TableViewCell: UITableViewCell {
                                        width: bounds.size.width, height: bounds.size.height)
             
             if deselectOnDragRelease {
-                if delegate != nil && FertilityInput != nil {
+                if delegate != nil && fertilityInput != nil {
                     // notify the delegate that this item should be deleted
-                    FertilityInput!.selected = false
+                    fertilityInput!.selected = false
                     itemCompleteLayer.isHidden = true
-                    delegate!.fertilityInputCategoryDeselected(FertilityInput!)
+                    delegate!.fertilityInputCategoryDeselected(fertilityInput!)
                     UIView.animate(withDuration: 0.2, animations: {self.frame = originalFrame})
                 }
             } else if selectOnDragRelease {
-                if delegate != nil && FertilityInput != nil {
+                if delegate != nil && fertilityInput != nil {
                    
                    
-                    if !FertilityInput!.isCategory || FertilityInput!.name == "Lubrication" {
+                    if !fertilityInput!.isCategory || fertilityInput!.name == "Lubrication" {
                         //only mark subInputs as selected or not
                         itemCompleteLayer.isHidden = false
-                        FertilityInput!.selected = true
+                        fertilityInput!.selected = true
                     } else {
                         //the categories need to be selected also so they can't be re-selected
-                        if !FertilityInput!.selected {
-                            delegate!.fertilityInputSelected(FertilityInput!)
+                        if !fertilityInput!.selected {
+                            delegate!.fertilityInputSelected(fertilityInput!)
                         }
-                        FertilityInput!.selected = true
+                        fertilityInput!.selected = true
                         
                     }
                 }

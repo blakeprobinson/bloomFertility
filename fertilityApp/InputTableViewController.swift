@@ -152,9 +152,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         let fertilityInput = menuData.fertilityInputs[indexPath.row]
         cell.selectionStyle = .none
         cell.delegate = self
-        cell.FertilityInput = fertilityInput
-        cell.backgroundColor = colorForCell(fertilityInput)
-
+        cell.fertilityInput = fertilityInput
         return cell
     }
     
@@ -165,31 +163,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         } else {
             return 50.0
         }
-    }
-    
-    func colorForCell(_ input: FertilityInput) -> UIColor {
-        var color:UIColor
-        switch input.category {
-            case "none":
-                switch input.name {
-                    case "Dry":
-                        color = UIColor(red: 93.0/255, green: 188.0/255, blue: 210.0/255, alpha: 1.0)
-                    case "Bleeding":
-                        color = UIColor(red: 255.0/255, green: 192.0/255, blue: 203.0/255, alpha: 1.0)
-                    case "Lubrication":
-                        //rgb(255,255,102)
-                        color = UIColor(red: 255.0/255, green: 255.0/255, blue: 102.0/255, alpha: 1.0)
-                default:
-                        color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
-                }
-            case "Dry":
-                color = UIColor(red: 93.0/255, green: 188.0/255, blue: 210.0/255, alpha: 1.0)
-            case "Bleeding":
-                color = UIColor(red: 255.0/255, green: 192.0/255, blue: 203.0/255, alpha: 1.0)
-            default:
-                color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
-        }
-        return color
     }
     
     // MARK: prep to persist methods
