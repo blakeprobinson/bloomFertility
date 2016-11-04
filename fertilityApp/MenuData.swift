@@ -50,6 +50,21 @@ struct MenuData {
         return nil
     }
     
+    mutating func selectedElements() -> [FertilityInput] {
+        var selectedArray = [FertilityInput]()
+        for (_, element) in fertilityInputs.enumerated() {
+            if element.selected && !element.isCategory {
+                selectedArray.append(element)
+            }
+            //Since lubrication is a category with no items in it we need this
+            //conditional
+            if element.name == "Lubrication" {
+                lubricationSelected = true
+            }
+        }
+        return selectedArray
+    }
+    
     func validateInputs(_ selectedArray:[FertilityInput]) -> String {
         var selectedArray = selectedArray
         var validationText = ""

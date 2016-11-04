@@ -84,17 +84,8 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     
     func saveButtonAction(_ sender: UIButton!) {
         validationLabel.text = ""
-        var selectedArray = [FertilityInput]()
-        for (_, element) in menuData.fertilityInputs.enumerated() {
-            if element.selected && !element.isCategory {
-                selectedArray.append(element)
-            }
-            //Since lubrication is a category with no items in it we need this
-            //conditional
-            if element.name == "Lubrication" {
-                menuData.lubricationSelected = true
-            }
-        }
+        let selectedArray = menuData.selectedElements()
+        
         //Validate inputs, which also sorts them
         validationLabel.text = menuData.validateInputs(selectedArray)
         
@@ -116,6 +107,8 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         
         
     }
+    
+    // MARK: - Cell Selection/Deselection Protocol
 
     func fertilityInputCategoryDeselected(_ FertilityInput:FertilityInput) {
         let index = (menuData.fertilityInputs as NSArray).index(of: FertilityInput)
@@ -141,12 +134,10 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return menuData.fertilityInputs.count
     }
 
@@ -158,10 +149,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
             return initialCell
         }
         
-        //cell.textLabel?.backgroundColor = UIColor.clearColor()
-        
         let fertilityInput = menuData.fertilityInputs[indexPath.row]
-        //cell.textLabel?.text = fertilityInput.name
         cell.selectionStyle = .none
         cell.delegate = self
         cell.FertilityInput = fertilityInput
