@@ -177,7 +177,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         persistMenuData.markPreviousDayAsPeakIfNecessary(mucusType, date:date)
         //When can you know that peak type mucus is over?  the next day?
         //two days later?
-        let color:String = determineColor(currentUserInput)
+        let color:String = persistMenuData.determineColor(currentUserInput)
         
         
         
@@ -199,38 +199,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         }
     }
     
-//    func markPreviousDayAsPeakIfNecessary(_ mucusType:String) {
-//        if mucusType == "" || mucusType == "non-peak" {
-//            //check last day for peak mucus
-//            let daysCount = days.count
-//            for i in (0 ..< daysCount).reversed() {
-//                //If current date is after date in days array,
-//                // stop loop and return date iterating
-//                if date.compare(days[i].date as Date) == ComparisonResult.orderedAscending {
-//                    if days[i].mucusType == "peak" {
-//                        days[i].peak = true;
-//                        break
-//                    }
-//                }
-//                
-//            }
-//            
-//        }
-//    }
-    
-    func determineColor(_ currentUserInput:Dictionary <String,String>) -> String {
-        var color:String = "green"
-        
-        if currentUserInput["category1"] == "Bleeding" || currentUserInput["category2"] == "Bleeding" {
-            color = "red"
-            return color
-        } else if currentUserInput["category1"] == "Mucus" || currentUserInput["category2"] == "Mucus" {
-            color = "white"
-            return color
-        }
-        return color
-        
-    }
     
     
     // MARK: NSCoding

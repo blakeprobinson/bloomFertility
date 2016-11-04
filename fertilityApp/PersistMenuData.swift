@@ -205,6 +205,20 @@ struct PersistMenuData {
         }
     }
     
+    func determineColor(_ currentUserInput:Dictionary <String,String>) -> String {
+        var color:String = "green"
+        
+        if currentUserInput["category1"] == "Bleeding" || currentUserInput["category2"] == "Bleeding" {
+            color = "red"
+            return color
+        } else if currentUserInput["category1"] == "Mucus" || currentUserInput["category2"] == "Mucus" {
+            color = "white"
+            return color
+        }
+        return color
+        
+    }
+    
 }
 
 extension PersistMenuData {
