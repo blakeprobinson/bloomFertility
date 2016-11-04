@@ -63,5 +63,29 @@ struct PersistMenuData {
         }
         return userInput
     }
+    
+    func findMucusType(_ currentUserInput:Dictionary<String, String>, menuData:MenuData) ->String {
+        var mucusType:String = ""
+        
+        if menuData.lubricationSelected {
+            mucusType = "peak"
+            
+        } else if currentUserInput["selection1"] == "Greater than 1 inch" || currentUserInput["selection1"] == "Clear" || currentUserInput["selection1"] == "Cloudy/Clear" {
+            mucusType = "peak"
+            
+        } else if currentUserInput["selection2"] == "Greater than 1 inch" || currentUserInput["selection2"] == "Clear" || currentUserInput["selection2"] == "Cloudy/Clear" {
+            mucusType = "peak"
+            
+        } else if currentUserInput["selection3"] == "Greater than 1 inch" || currentUserInput["selection3"] == "Clear" || currentUserInput["selection3"] == "Cloudy/Clear" {
+            mucusType = "peak"
+        }  else if currentUserInput["selection1"] == "1/4 Inch" || currentUserInput["selection1"] == "1/2 to 3/4 inch" {
+            mucusType = "non-peak"
+        }  else if currentUserInput["selection2"] == "1/4 Inch" || currentUserInput["selection2"] == "1/2 to 3/4 inch" {
+            mucusType = "non-peak"
+        } else if currentUserInput["selection3"] == "1/4 Inch" || currentUserInput["selection3"] == "1/2 to 3/4 inch" {
+            mucusType = "non-peak"
+        }
+        return mucusType
+    }
 
 }
