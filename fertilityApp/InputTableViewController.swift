@@ -15,7 +15,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     
     var validationLabel = UILabel()
     var date = Date()
-    var days = PersistMenuData.fetchDays()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,16 +89,14 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         if validationLabel.text == "" {
             persistMenuData.addNewUserInput(selectedArray, menuData:menuData, date:date)
             persistMenuData.saveDays()
-            for (_, element) in menuData.fertilityInputs.enumerated() {
-            
-                element.selected = false;
-            }
-            self.inputTableView.reloadData()
-            
             
             let cycleViewController = tabBarController?.viewControllers![1]	
             cycleViewController?.viewWillAppear(true)
             tabBarController?.selectedIndex = 1
+            
+            //clear existing selections in tableView
+            menuData.removeAnySubInputsFromFertilityArray()
+            self.inputTableView.reloadData()
         }
         
         
@@ -161,50 +158,5 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
             return 50.0
         }
     }
-    
-    // MARK: prep to persist methods
-    
-//    func addNewUserInput(_ selectedArray: [FertilityInput]) {
-//        
-//        let currentUserInput:Dictionary = persistMenuData.selectedArrayToUserInput(selectedArray)
-//        
-//        let fertile:Bool = persistMenuData.isFertile(currentUserInput, menuData:menuData)
-//        let mucusType:String = persistMenuData.findMucusType(currentUserInput, menuData: menuData)
-//        let peak:Bool = false
-//        //check to see if previous day is peak
-//        //if so, change bool to peak.
-//        
-//        persistMenuData.markPreviousDayAsPeakIfNecessary(mucusType, date:date)
-//        //When can you know that peak type mucus is over?  the next day?
-//        //two days later?
-//        let color:String = persistMenuData.determineColor(currentUserInput)
-//        
-//        
-//        
-//        let currentDay = Day(category1:currentUserInput["category1"]!,
-//                             category2: currentUserInput["category2"]!,
-//                             selection1: currentUserInput["selection1"]!,
-//                             selection2: currentUserInput["selection2"]!,
-//                             selection3: currentUserInput["selection3"]!,
-//                             mucusType:mucusType,
-//                             heart: menuData.heartTouched,
-//                             lubrication: menuData.lubricationSelected,
-//                             date: date,
-//                             color: color,
-//                             fertile:fertile,
-//                             peak:peak)
-//        
-//        if let currentDay = currentDay {
-//            days.append(currentDay)
-//        }
-//    }
-    
-    
-    
-    // MARK: NSCoding
-    
-//    func saveDays() {
-//        Day.saveDays(days)
-//    }
     
 }

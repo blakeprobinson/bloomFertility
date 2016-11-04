@@ -50,6 +50,10 @@ struct MenuData {
         return nil
     }
     
+    mutating func removeAnySubInputsFromFertilityArray() {
+        fertilityInputs = MenuData.categoryData()
+    }
+    
     mutating func selectedElements() -> [FertilityInput] {
         var selectedArray = [FertilityInput]()
         for (_, element) in fertilityInputs.enumerated() {
