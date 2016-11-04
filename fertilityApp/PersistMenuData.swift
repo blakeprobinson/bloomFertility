@@ -66,6 +66,41 @@ struct PersistMenuData {
         return userInput
     }
     
+    mutating func addNewUserInput(_ selectedArray: [FertilityInput], menuData:MenuData, date:Date) {
+        
+        let currentUserInput:Dictionary = selectedArrayToUserInput(selectedArray)
+        
+        let fertile:Bool = isFertile(currentUserInput, menuData:menuData)
+        let mucusType:String = findMucusType(currentUserInput, menuData: menuData)
+        let peak:Bool = false
+        //check to see if previous day is peak
+        //if so, change bool to peak.
+        
+        markPreviousDayAsPeakIfNecessary(mucusType, date:date)
+        //When can you know that peak type mucus is over?  the next day?
+        //two days later?
+        let color:String = determineColor(currentUserInput)
+        
+        
+        
+        let currentDay = Day(category1:currentUserInput["category1"]!,
+                             category2: currentUserInput["category2"]!,
+                             selection1: currentUserInput["selection1"]!,
+                             selection2: currentUserInput["selection2"]!,
+                             selection3: currentUserInput["selection3"]!,
+                             mucusType:mucusType,
+                             heart: menuData.heartTouched,
+                             lubrication: menuData.lubricationSelected,
+                             date: date,
+                             color: color,
+                             fertile:fertile,
+                             peak:peak)
+        
+        if let currentDay = currentDay {
+            days.append(currentDay)
+        }
+    }
+    
     func findMucusType(_ currentUserInput:Dictionary<String, String>, menuData:MenuData) ->String {
         var mucusType:String = ""
         
@@ -217,6 +252,10 @@ struct PersistMenuData {
         }
         return color
         
+    }
+    
+    func saveDays() {
+        Day.saveDays(days)
     }
     
 }

@@ -88,8 +88,8 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         
         //If no validation label is generated, then inputs are valid.
         if validationLabel.text == "" {
-            addNewUserInput(selectedArray)
-            saveDays()
+            persistMenuData.addNewUserInput(selectedArray, menuData:menuData, date:date)
+            persistMenuData.saveDays()
             for (_, element) in menuData.fertilityInputs.enumerated() {
             
                 element.selected = false;
@@ -164,47 +164,47 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     
     // MARK: prep to persist methods
     
-    func addNewUserInput(_ selectedArray: [FertilityInput]) {
-        
-        let currentUserInput:Dictionary = persistMenuData.selectedArrayToUserInput(selectedArray)
-        
-        let fertile:Bool = persistMenuData.isFertile(currentUserInput, menuData:menuData)
-        let mucusType:String = persistMenuData.findMucusType(currentUserInput, menuData: menuData)
-        let peak:Bool = false
-        //check to see if previous day is peak
-        //if so, change bool to peak.
-        
-        persistMenuData.markPreviousDayAsPeakIfNecessary(mucusType, date:date)
-        //When can you know that peak type mucus is over?  the next day?
-        //two days later?
-        let color:String = persistMenuData.determineColor(currentUserInput)
-        
-        
-        
-        let currentDay = Day(category1:currentUserInput["category1"]!,
-                             category2: currentUserInput["category2"]!,
-                             selection1: currentUserInput["selection1"]!,
-                             selection2: currentUserInput["selection2"]!,
-                             selection3: currentUserInput["selection3"]!,
-                             mucusType:mucusType,
-                             heart: menuData.heartTouched,
-                             lubrication: menuData.lubricationSelected,
-                             date: date,
-                             color: color,
-                             fertile:fertile,
-                             peak:peak)
-        
-        if let currentDay = currentDay {
-            days.append(currentDay)
-        }
-    }
+//    func addNewUserInput(_ selectedArray: [FertilityInput]) {
+//        
+//        let currentUserInput:Dictionary = persistMenuData.selectedArrayToUserInput(selectedArray)
+//        
+//        let fertile:Bool = persistMenuData.isFertile(currentUserInput, menuData:menuData)
+//        let mucusType:String = persistMenuData.findMucusType(currentUserInput, menuData: menuData)
+//        let peak:Bool = false
+//        //check to see if previous day is peak
+//        //if so, change bool to peak.
+//        
+//        persistMenuData.markPreviousDayAsPeakIfNecessary(mucusType, date:date)
+//        //When can you know that peak type mucus is over?  the next day?
+//        //two days later?
+//        let color:String = persistMenuData.determineColor(currentUserInput)
+//        
+//        
+//        
+//        let currentDay = Day(category1:currentUserInput["category1"]!,
+//                             category2: currentUserInput["category2"]!,
+//                             selection1: currentUserInput["selection1"]!,
+//                             selection2: currentUserInput["selection2"]!,
+//                             selection3: currentUserInput["selection3"]!,
+//                             mucusType:mucusType,
+//                             heart: menuData.heartTouched,
+//                             lubrication: menuData.lubricationSelected,
+//                             date: date,
+//                             color: color,
+//                             fertile:fertile,
+//                             peak:peak)
+//        
+//        if let currentDay = currentDay {
+//            days.append(currentDay)
+//        }
+//    }
     
     
     
     // MARK: NSCoding
     
-    func saveDays() {
-        Day.saveDays(days)
-    }
+//    func saveDays() {
+//        Day.saveDays(days)
+//    }
     
 }
