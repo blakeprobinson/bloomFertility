@@ -125,7 +125,6 @@
 			children = (
 				BADE23101DCBB33F00D806A8 /* FertilityInput.swift */,
 				BA88EFC21DA838F800E9CB12 /* FertilitySignViewController.swift */,
-				BAFE41651D8B3312002DA808 /* Models */,
 				BA0A4DCA1D871915008F500B /* InputTableViewController.swift */,
 				BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */,
 				BA66C88D1D999247003B9D3C /* Day.swift */,
@@ -161,13 +160,6 @@
 				BAF4DFA51D899FD8003AA820 /* JennaSue.ttf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		BAFE41651D8B3312002DA808 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
