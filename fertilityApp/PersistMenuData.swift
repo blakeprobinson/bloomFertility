@@ -82,7 +82,8 @@ struct PersistMenuData {
         let color:String = determineColor(currentUserInput)
         
         
-        
+        //All categories and selections can be force unwrapped since they are set
+        //with values in selectedArrayToUserInput function
         let currentDay = Day(category1:currentUserInput["category1"]!,
                              category2: currentUserInput["category2"]!,
                              selection1: currentUserInput["selection1"]!,

@@ -30,10 +30,12 @@ class TableViewCell: UITableViewCell {
     var delegate: TableViewCellDelegate?
     // The item that this cell renders.
     var fertilityInput: FertilityInput? {
-        didSet {
-            label.text = fertilityInput!.name
-            itemCompleteLayer.isHidden = !fertilityInput!.selected || fertilityInput!.isCategory
-            self.backgroundColor = colorForCell(fertilityInput!)
+        willSet(newFertilityInput) {
+            if let newFertilityInput = newFertilityInput {
+                label.text = newFertilityInput.name
+                itemCompleteLayer.isHidden = !newFertilityInput.selected || newFertilityInput.isCategory
+                self.backgroundColor = colorForCell(newFertilityInput)
+            }
         }
     }
     
