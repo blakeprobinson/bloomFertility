@@ -10,31 +10,160 @@ import Foundation
 
 struct MenuData {
     var fertilityInputs = MenuData.categoryData()
+    var lubricationSelected = false
+    var heartTouched = false
     private var dryInputs = MenuData.drySubCategory()
     private var bleedingInputs = MenuData.bleedingSubCategory()
     private var mucusInputs = MenuData.mucusSubCategory()
     
-    mutating func selected(input fertilityInput: FertilityInput) {
+    mutating func selected(input fertilityInput: FertilityInput) -> [IndexPath] {
+        var indexPaths = [IndexPath]()
         if fertilityInput.isCategory == true {
             switch fertilityInput.name {
             case "Dry":
-                addSubInputsToFertilityArray(dryInputs)
+                indexPaths = addSubInputsToFertilityArray(dryInputs)
             case "Mucus":
-                addSubInputsToFertilityArray(mucusInputs)
+                indexPaths = addSubInputsToFertilityArray(mucusInputs)
             case "Lubrication":
                 print("Lubrication Selected")
             default:
-                addSubInputsToFertilityArray(bleedingInputs)
+                indexPaths = addSubInputsToFertilityArray(bleedingInputs)
             }
         }
+        return indexPaths
     }
+    
+    mutating func removeSubInputsFromFertilityArrayReturnIndexPaths(_ FertilityInput: FertilityInput) -> [IndexPath]? {
+        if FertilityInput.isCategory == true {
+            switch FertilityInput.name {
+                
+            case "Dry":
+                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Dry")
+            case "Mucus":
+                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Mucus")
+            case "Lubrication":
+                return nil
+            default:
+                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Bleeding")
+            }
+        }
+        return nil
+    }
+    
+    mutating func removeAnySubInputsFromFertilityArray() {
+        fertilityInputs = MenuData.categoryData()
+    }
+    
+    mutating func selectedElements() -> [FertilityInput] {
+        var selectedArray = [FertilityInput]()
+        for (_, element) in fertilityInputs.enumerated() {
+            if element.selected && !element.isCategory {
+                selectedArray.append(element)
+            }
+            //Since lubrication is a category with no items in it we need this
+            //conditional
+            if element.name == "Lubrication" {
+                lubricationSelected = true
+            }
+        }
+        return selectedArray
+    }
+    
+    func validateInputs(_ selectedArray:[FertilityInput]) -> String {
+        var selectedArray = selectedArray
+        var validationText = ""
+        let arrayCount =  selectedArray.count
+        selectedArray.sort { $0.category < $1.category }
+        var categoryZero = String()
+        var categoryOne = String()
+        if arrayCount > 0 {
+            categoryZero = selectedArray[0].category
+        }
+        if arrayCount > 1 {
+            categoryOne = selectedArray[1].category
+        }
+        
+        switch arrayCount {
+        case 0:
+            validationText = "I think you forgot to choose an option ;)"
+        case 1:
+            if categoryZero == "Mucus" {
+                if selectedArray[0].isLength {
+                    validationText = "Please select a color for the mucus, too"
+                } else {
+                    validationText = "Please select a length for the mucus, too"
+                }
+            }
+        case 2:
+            //case 1 one each from two different categories
+            if categoryZero != categoryOne {
+                //validate that one element is bleeding - very light/brown and the
+                //the situation could be needing to select a length or a color in mucus...
+                if categoryZero == "Bleeding" && categoryOne == "Mucus" {
+                    if selectedArray[0].name == "Light" || selectedArray[0].name == "Very Light" || selectedArray[0].name == "Brown" {
+                        if selectedArray[1].isLength {
+                            //please select a color
+                        } else {
+                            //please select a length
+                        }
+                    }
+                } else {
+                    validationText = "Dry doesn't work with any other option ;)"
+                }
+            } else {
+                //case 2 two from "Bleeding", but not one length and one color
+                if categoryZero == "Bleeding" {
+                    
+                    if selectedArray[0].isLength && selectedArray[1].isLength {
+                        validationText = "Please select a color instead of one of the lengths you selected."
+                    } else if !selectedArray[0].isLength && !selectedArray[1].isLength {
+                        validationText = "Please select a length instead of one of the colors you selected."
+                    }
+                } else if categoryZero == "Mucus" {
+                    if selectedArray[0].isLength && !selectedArray[1].isLength {
+                        
+                    } else if !selectedArray[0].isLength && selectedArray[1].isLength {
+                        
+                    } else {
+                        validationText = "Please select one length and one color from the mucus category."
+                    }
+                } else {
+                    //case 3 two from the same category, but not "bleeding"
+                    validationText = "You can only choose one from the Dry and Bleeding categories."
+                    
+                }
+            }
+        case 3:
+            let firstFertilityInput = selectedArray[0]
+            let secondFertilityInput = selectedArray[1]
+            let thirdFertilityInput = selectedArray[2]
+            if firstFertilityInput.name == "Light" || firstFertilityInput.name == "Very Light" || firstFertilityInput.name == "Brown" {
+                //since a value of false for isLength could be another category besides mucus
+                //I am checking to make sure the category is mucus
+                if secondFertilityInput.isLength && !thirdFertilityInput.isLength && thirdFertilityInput.category == "Mucus" {
+                    
+                    
+                } else if !secondFertilityInput.isLength && secondFertilityInput.category == "Mucus" && thirdFertilityInput.isLength {
+                    
+                } else {
+                    validationText = "The only combination of three selections is Light, Very Light or Brown Bleeding and two Mucus selections"
+                }
+            }
+            
+        default:
+            validationText = "I think you've chosen at least one too many options ;)"
+            
+        }
+        return validationText
+    }
+
 }
 
 // MARK: Private Helpers
 
 private extension MenuData {
     
-    mutating func addSubInputsToFertilityArray(_ subArray: [FertilityInput]) {
+    mutating func addSubInputsToFertilityArray(_ subArray: [FertilityInput]) -> [IndexPath] {
         var indexPaths = [IndexPath]()
         for (index, element) in fertilityInputs.enumerated() {
             //if the subArray is the category of the fertilityInput
@@ -49,6 +178,19 @@ private extension MenuData {
                 }
             }
         }
+        return indexPaths
+    }
+    
+    mutating func removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(_ category: String) ->  [IndexPath]{
+        var indexPathArray = [IndexPath]()
+        for (index, element) in fertilityInputs.enumerated().reversed() {
+            if element.category == category {
+                fertilityInputs.remove(at: index)
+                let indexPath = IndexPath(row: index, section: 0)
+                indexPathArray.append(indexPath)
+            }
+        }
+        return indexPathArray
     }
 }
 

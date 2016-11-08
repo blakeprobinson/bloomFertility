@@ -26,6 +26,7 @@
 		BA88EFCB1DAD194000E9CB12 /* cycleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE416C1D8B3ACF002DA808 /* cycleTableViewCell.swift */; };
 		BADE23111DCBB33F00D806A8 /* FertilityInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE23101DCBB33F00D806A8 /* FertilityInput.swift */; };
 		BADE23131DCBB7D900D806A8 /* MenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE23121DCBB7D900D806A8 /* MenuData.swift */; };
+		BADE23151DCCD24400D806A8 /* PersistMenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE23141DCCD24400D806A8 /* PersistMenuData.swift */; };
 		BAF4DFA61D899FD8003AA820 /* JennaSue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAF4DFA51D899FD8003AA820 /* JennaSue.ttf */; };
 		BAF4DFA81D89A3CA003AA820 /* BackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF4DFA71D89A3CA003AA820 /* BackgroundImage.swift */; };
 		BAF4DFAA1D89A482003AA820 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF4DFA91D89A482003AA820 /* LaunchViewController.swift */; };
@@ -74,6 +75,7 @@
 		BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputContainerViewController.swift; sourceTree = "<group>"; };
 		BADE23101DCBB33F00D806A8 /* FertilityInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FertilityInput.swift; sourceTree = "<group>"; };
 		BADE23121DCBB7D900D806A8 /* MenuData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuData.swift; sourceTree = "<group>"; };
+		BADE23141DCCD24400D806A8 /* PersistMenuData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistMenuData.swift; sourceTree = "<group>"; };
 		BAF4DFA51D899FD8003AA820 /* JennaSue.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = JennaSue.ttf; sourceTree = "<group>"; };
 		BAF4DFA71D89A3CA003AA820 /* BackgroundImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundImage.swift; sourceTree = "<group>"; };
 		BAF4DFA91D89A482003AA820 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -123,11 +125,11 @@
 			children = (
 				BADE23101DCBB33F00D806A8 /* FertilityInput.swift */,
 				BA88EFC21DA838F800E9CB12 /* FertilitySignViewController.swift */,
-				BAFE41651D8B3312002DA808 /* Models */,
 				BA0A4DCA1D871915008F500B /* InputTableViewController.swift */,
 				BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */,
 				BA66C88D1D999247003B9D3C /* Day.swift */,
 				BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */,
+				BADE23141DCCD24400D806A8 /* PersistMenuData.swift */,
 				BA0A4DB51D870AB8008F500B /* AppDelegate.swift */,
 				BAFE416A1D8B3A34002DA808 /* CycleTableViewController.swift */,
 				BA0A4DBB1D870AB8008F500B /* Main.storyboard */,
@@ -158,13 +160,6 @@
 				BAF4DFA51D899FD8003AA820 /* JennaSue.ttf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		BAFE41651D8B3312002DA808 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +297,7 @@
 				BAF4DFA81D89A3CA003AA820 /* BackgroundImage.swift in Sources */,
 				BA0A4DCC1D871915008F500B /* InputTableViewController.swift in Sources */,
 				BAF4DFAA1D89A482003AA820 /* LaunchViewController.swift in Sources */,
+				BADE23151DCCD24400D806A8 /* PersistMenuData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
