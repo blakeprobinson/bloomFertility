@@ -89,16 +89,22 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         if validationLabel.text == "" {
             persistMenuData.addNewUserInput(selectedArray, menuData:menuData, date:date)
             persistMenuData.saveDays()
+            goToCycleView()
             
-            let cycleViewController = tabBarController?.viewControllers![1]	
-            cycleViewController?.viewWillAppear(true)
-            tabBarController?.selectedIndex = 1
             
             //clear existing selections in tableView
             menuData.removeAnySubInputsFromFertilityArray()
             self.inputTableView.reloadData()
         }
-        
+    }
+    
+    func goToCycleView() {
+        if let cycleViewController = tabBarController?.viewControllers![1] {
+            cycleViewController.viewWillAppear(true)
+            if var selectedIndex = tabBarController?.selectedIndex {
+                selectedIndex = 1
+            }
+        }
         
     }
     
