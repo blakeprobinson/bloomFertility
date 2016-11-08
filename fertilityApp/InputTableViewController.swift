@@ -33,8 +33,8 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
         button.setTitle("Save", for: UIControlState())
         button.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
         
-        let image = UIImage(named: "heart emoji") as UIImage?
-        let heartButton   = UIButton(type: UIButtonType.custom) as UIButton
+        let image = UIImage(named: "heart emoji")
+        let heartButton   = UIButton(type: UIButtonType.custom)
         heartButton.frame = CGRect(x: screenSize.width*(0.75), y: 50, width: screenSize.width*(0.15), height: 50)
         heartButton.setImage(image, for: UIControlState())
         heartButton.addTarget(self, action: #selector(InputTableViewController.heartButtonAction(_:)), for:.touchUpInside)
