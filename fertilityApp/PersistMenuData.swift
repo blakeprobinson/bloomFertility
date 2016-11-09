@@ -20,7 +20,7 @@ struct PersistMenuData {
         case 1:
             userInput = [
                 "category1": selectedArray[0].category.rawValue,
-                "selection1":selectedArray[0].name,
+                "selection1":selectedArray[0].name.rawValue,
                 "category2": "",
                 "selection2": "",
                 "selection3": ""
@@ -29,17 +29,17 @@ struct PersistMenuData {
             if selectedArray[0].category != selectedArray[1].category {
                 userInput = [
                     "category1": selectedArray[0].category.rawValue,
-                    "selection1":selectedArray[0].name,
+                    "selection1":selectedArray[0].name.rawValue,
                     "category2": selectedArray[1].category.rawValue,
-                    "selection2":selectedArray[1].name,
+                    "selection2":selectedArray[1].name.rawValue,
                     "selection3": ""
                 ]
             } else {
                 userInput = [
                     "category1": selectedArray[0].category.rawValue,
                     "category2": "",
-                    "selection1":selectedArray[0].name,
-                    "selection2":selectedArray[1].name,
+                    "selection1":selectedArray[0].name.rawValue,
+                    "selection2":selectedArray[1].name.rawValue,
                     "selection3": ""
                 ]
             }
@@ -47,18 +47,18 @@ struct PersistMenuData {
             if selectedArray[0].category != selectedArray[1].category {
                 userInput = [
                     "category1": selectedArray[0].category.rawValue,
-                    "selection1":selectedArray[0].name,
+                    "selection1":selectedArray[0].name.rawValue,
                     "category2": selectedArray[1].category.rawValue,
-                    "selection2":selectedArray[1].name,
-                    "selection3":selectedArray[2].name
+                    "selection2":selectedArray[1].name.rawValue,
+                    "selection3":selectedArray[2].name.rawValue
                 ]
             } else {
                 userInput = [
                     "category1": selectedArray[0].category.rawValue,
                     "category2": selectedArray[2].category.rawValue,
-                    "selection1":selectedArray[0].name,
-                    "selection2":selectedArray[1].name,
-                    "selection3":selectedArray[2].name
+                    "selection1":selectedArray[0].name.rawValue,
+                    "selection2":selectedArray[1].name.rawValue,
+                    "selection3":selectedArray[2].name.rawValue
                 ]
             }
             

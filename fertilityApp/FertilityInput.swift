@@ -10,22 +10,23 @@ import UIKit
 
 class FertilityInput: NSObject {
     
-    var name: String
+    var name: Name
     var selected: Bool
     var isCategory: Bool
     var category:Category
     var isLength: Bool
     
     enum Category:String {
-        case bleeding
-        case dry
-        case mucus
-        case none
+        case bleeding, dry, mucus, none
+    }
+    
+    enum Name:String {
+        case dry, bleeding, mucus, lubrication, heavy, moderate, light, veryLight = "very light", brown, damp, shiny, wet, quarterInch = "1/4 Inch", halfToThreeQuarterInch = "1/2 to 3/4 inch", oneInch = "greater than 1 inch", clear, cloudyClear = "cloudy/clear", cloudy, yellow, pasty, none
     }
     
     
-    init(name:String, isCategory:Bool, category:Category, isLength:Bool) {
-        self.name = (name)
+    init(name:Name, isCategory:Bool, category:Category, isLength:Bool) {
+        self.name = name
         self.isCategory = (isCategory)
         self.category = category
 //        if let category = Category(rawValue: category) {
