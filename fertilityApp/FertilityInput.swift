@@ -24,14 +24,15 @@ class FertilityInput: NSObject {
     }
     
     
-    init(name:String, isCategory:Bool, category:String, isLength:Bool) {
+    init(name:String, isCategory:Bool, category:Category, isLength:Bool) {
         self.name = (name)
         self.isCategory = (isCategory)
-        if let category = Category(rawValue: category) {
-            self.category = category
-        } else {
-            self.category = Category.none
-        }
+        self.category = category
+//        if let category = Category(rawValue: category) {
+//            self.category = category
+//        } else {
+//            self.category = Category.none
+//        }
         self.selected = false
         self.isLength = isLength
         super.init()

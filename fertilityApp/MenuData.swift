@@ -199,35 +199,35 @@ private extension MenuData {
 private extension MenuData {
     
     static func categoryData() -> [FertilityInput] {
-        return [FertilityInput(name: "dry", isCategory: true, category: "none", isLength:false),
-                FertilityInput(name: "bleeding", isCategory: true, category: "none", isLength:false),
-                FertilityInput(name: "mucus", isCategory: true, category: "none", isLength:false),
-                FertilityInput(name: "lubrication", isCategory: true, category: "none", isLength:false)]
+        return [FertilityInput(name: "dry", isCategory: true, category: FertilityInput.Category.none, isLength:false),
+                FertilityInput(name: "bleeding", isCategory: true, category: FertilityInput.Category.none, isLength:false),
+                FertilityInput(name: "mucus", isCategory: true, category: FertilityInput.Category.none, isLength:false),
+                FertilityInput(name: "lubrication", isCategory: true, category: FertilityInput.Category.none, isLength:false)]
     }
     
     static func bleedingSubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: "Heavy", isCategory: false, category: "bleeding", isLength:false),
-                FertilityInput(name: "Moderate", isCategory: false, category: "bleeding", isLength:false),
-                FertilityInput(name: "Light", isCategory: false, category: "bleeding", isLength:false),
-                FertilityInput(name: "Very Light", isCategory: false, category: "bleeding", isLength:false),
-                FertilityInput(name: "Brown", isCategory: false, category: "bleeding", isLength:false)]
+        return [FertilityInput(name: "Heavy", isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
+                FertilityInput(name: "Moderate", isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
+                FertilityInput(name: "Light", isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
+                FertilityInput(name: "Very Light", isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
+                FertilityInput(name: "Brown", isCategory: false, category: FertilityInput.Category.bleeding, isLength:false)]
     }
     
     static func drySubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: "Damp", isCategory: false, category: "dry", isLength:false),
-                FertilityInput(name: "Shiny", isCategory: false, category: "dry", isLength:false),
-                FertilityInput(name: "Wet", isCategory: false, category: "dry", isLength:false)]
+        return [FertilityInput(name: "Damp", isCategory: false, category: FertilityInput.Category.dry, isLength:false),
+                FertilityInput(name: "Shiny", isCategory: false, category: FertilityInput.Category.dry, isLength:false),
+                FertilityInput(name: "Wet", isCategory: false, category: FertilityInput.Category.dry, isLength:false)]
     }
     
     static func mucusSubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: "1/4 Inch", isCategory: false, category: "mucus", isLength: true),
-                FertilityInput(name: "1/2 to 3/4 inch", isCategory: false, category: "mucus", isLength: true),
-                FertilityInput(name: "Greater than 1 inch", isCategory: false, category: "mucus", isLength: true),
-                FertilityInput(name: "Clear", isCategory: false, category: "mucus", isLength:false),
-                FertilityInput(name: "Cloudy/Clear", isCategory: false, category: "mucus", isLength:false),
-                FertilityInput(name: "Cloudy", isCategory: false, category: "mucus", isLength:false),
-                FertilityInput(name: "Yellow", isCategory: false, category: "mucus", isLength:false),
-                FertilityInput(name: "Brown", isCategory: false, category: "mucus", isLength:false),
-                FertilityInput(name: "Pasty", isCategory: false, category: "mucus", isLength:false)]
+        return [FertilityInput(name: "1/4 Inch", isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
+                FertilityInput(name: "1/2 to 3/4 inch", isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
+                FertilityInput(name: "Greater than 1 inch", isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
+                FertilityInput(name: "Clear", isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: "Cloudy/Clear", isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: "Cloudy", isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: "Yellow", isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: "Brown", isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: "Pasty", isCategory: false, category: FertilityInput.Category.mucus, isLength:false)]
     }
 }
