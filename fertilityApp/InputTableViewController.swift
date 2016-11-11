@@ -101,9 +101,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate {
     func goToCycleView() {
         if let cycleViewController = tabBarController?.viewControllers![1] {
             cycleViewController.viewWillAppear(true)
-            if var selectedIndex = tabBarController?.selectedIndex {
-                selectedIndex = 1
-            }
+            tabBarController?.selectedIndex = 1
         }
         
     }

@@ -32,7 +32,7 @@ class TableViewCell: UITableViewCell {
     var fertilityInput: FertilityInput? {
         willSet(newFertilityInput) {
             if let newFertilityInput = newFertilityInput {
-                label.text = newFertilityInput.name
+                label.text = newFertilityInput.name.rawValue
                 itemCompleteLayer.isHidden = !newFertilityInput.selected || newFertilityInput.isCategory
                 self.backgroundColor = colorForCell(newFertilityInput)
             }
@@ -107,21 +107,24 @@ class TableViewCell: UITableViewCell {
     func colorForCell(_ input: FertilityInput) -> UIColor {
         var color:UIColor
         switch input.category {
-        case "none":
+        case .none:
             switch input.name {
-            case "Dry":
+            case .dry:
                 color = UIColor(red: 93.0/255, green: 188.0/255, blue: 210.0/255, alpha: 1.0)
-            case "Bleeding":
+            case .bleeding:
                 color = UIColor(red: 255.0/255, green: 192.0/255, blue: 203.0/255, alpha: 1.0)
-            case "Lubrication":
+            case .lubrication:
                 //rgb(255,255,102)
                 color = UIColor(red: 255.0/255, green: 255.0/255, blue: 102.0/255, alpha: 1.0)
+            case .mucus:
+                color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
             default:
                 color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
+                print("arrived at meaningless default in switch")
             }
-        case "Dry":
+        case .dry:
             color = UIColor(red: 93.0/255, green: 188.0/255, blue: 210.0/255, alpha: 1.0)
-        case "Bleeding":
+        case .bleeding:
             color = UIColor(red: 255.0/255, green: 192.0/255, blue: 203.0/255, alpha: 1.0)
         default:
             color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
@@ -179,7 +182,7 @@ class TableViewCell: UITableViewCell {
                 if delegate != nil && fertilityInput != nil {
                    
                    
-                    if !fertilityInput!.isCategory || fertilityInput!.name == "Lubrication" {
+                    if !fertilityInput!.isCategory || fertilityInput!.name.rawValue == "lubrication" {
                         //only mark subInputs as selected or not
                         itemCompleteLayer.isHidden = false
                         fertilityInput!.selected = true

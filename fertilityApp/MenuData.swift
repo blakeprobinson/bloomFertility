@@ -18,34 +18,34 @@ struct MenuData {
     
     mutating func selected(input fertilityInput: FertilityInput) -> [IndexPath] {
         var indexPaths = [IndexPath]()
-        if fertilityInput.isCategory == true {
-            switch fertilityInput.name {
-            case "Dry":
+        switch fertilityInput.name {
+            case .dry:
                 indexPaths = addSubInputsToFertilityArray(dryInputs)
-            case "Mucus":
+            case .mucus:
                 indexPaths = addSubInputsToFertilityArray(mucusInputs)
-            case "Lubrication":
+            case .lubrication:
                 print("Lubrication Selected")
-            default:
+            case .bleeding:
                 indexPaths = addSubInputsToFertilityArray(bleedingInputs)
-            }
+            default:
+                print("arrived at meaningless default")
         }
         return indexPaths
     }
     
     mutating func removeSubInputsFromFertilityArrayReturnIndexPaths(_ FertilityInput: FertilityInput) -> [IndexPath]? {
-        if FertilityInput.isCategory == true {
-            switch FertilityInput.name {
-                
-            case "Dry":
-                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Dry")
-            case "Mucus":
-                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Mucus")
-            case "Lubrication":
-                return nil
-            default:
-                return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths("Bleeding")
-            }
+        
+        switch FertilityInput.name {
+            
+        case .dry:
+            return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(FertilityInput.name.rawValue)
+        case .mucus:
+        return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(FertilityInput.name.rawValue)
+        case .lubrication:
+            return nil
+        case .bleeding:
+            return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(FertilityInput.name.rawValue)
+        default: break
         }
         return nil
     }
@@ -62,7 +62,7 @@ struct MenuData {
             }
             //Since lubrication is a category with no items in it we need this
             //conditional
-            if element.name == "Lubrication" {
+            if element.name.rawValue == "lubrication" {
                 lubricationSelected = true
             }
         }
@@ -73,14 +73,14 @@ struct MenuData {
         var selectedArray = selectedArray
         var validationText = ""
         let arrayCount =  selectedArray.count
-        selectedArray.sort { $0.category < $1.category }
+        selectedArray.sort { $0.category.rawValue < $1.category.rawValue }
         var categoryZero = String()
         var categoryOne = String()
         if arrayCount > 0 {
-            categoryZero = selectedArray[0].category
+            categoryZero = selectedArray[0].category.rawValue
         }
         if arrayCount > 1 {
-            categoryOne = selectedArray[1].category
+            categoryOne = selectedArray[1].category.rawValue
         }
         
         switch arrayCount {
@@ -100,7 +100,7 @@ struct MenuData {
                 //validate that one element is bleeding - very light/brown and the
                 //the situation could be needing to select a length or a color in mucus...
                 if categoryZero == "Bleeding" && categoryOne == "Mucus" {
-                    if selectedArray[0].name == "Light" || selectedArray[0].name == "Very Light" || selectedArray[0].name == "Brown" {
+                    if selectedArray[0].name.rawValue == "light" || selectedArray[0].name.rawValue == "very light" || selectedArray[0].name.rawValue == "brown" {
                         if selectedArray[1].isLength {
                             //please select a color
                         } else {
@@ -137,13 +137,13 @@ struct MenuData {
             let firstFertilityInput = selectedArray[0]
             let secondFertilityInput = selectedArray[1]
             let thirdFertilityInput = selectedArray[2]
-            if firstFertilityInput.name == "Light" || firstFertilityInput.name == "Very Light" || firstFertilityInput.name == "Brown" {
+            if firstFertilityInput.name.rawValue == "light" || firstFertilityInput.name.rawValue == "very light" || firstFertilityInput.name.rawValue == "brown" {
                 //since a value of false for isLength could be another category besides mucus
                 //I am checking to make sure the category is mucus
-                if secondFertilityInput.isLength && !thirdFertilityInput.isLength && thirdFertilityInput.category == "Mucus" {
+                if secondFertilityInput.isLength && !thirdFertilityInput.isLength && thirdFertilityInput.category.rawValue == "mucus" {
                     
                     
-                } else if !secondFertilityInput.isLength && secondFertilityInput.category == "Mucus" && thirdFertilityInput.isLength {
+                } else if !secondFertilityInput.isLength && secondFertilityInput.category.rawValue == "mucus" && thirdFertilityInput.isLength {
                     
                 } else {
                     validationText = "The only combination of three selections is Light, Very Light or Brown Bleeding and two Mucus selections"
@@ -167,7 +167,7 @@ private extension MenuData {
         var indexPaths = [IndexPath]()
         for (index, element) in fertilityInputs.enumerated() {
             //if the subArray is the category of the fertilityInput
-            if element.name == subArray[0].category {
+            if element.name.rawValue == subArray[0].category.rawValue {
                 //aadd the elements of the subArray to FertilityInput
                 var insertIndex = index + 1
                 for subArrayElement in subArray {
@@ -184,7 +184,7 @@ private extension MenuData {
     mutating func removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(_ category: String) ->  [IndexPath]{
         var indexPathArray = [IndexPath]()
         for (index, element) in fertilityInputs.enumerated().reversed() {
-            if element.category == category {
+            if element.category.rawValue == category {
                 fertilityInputs.remove(at: index)
                 let indexPath = IndexPath(row: index, section: 0)
                 indexPathArray.append(indexPath)
@@ -199,35 +199,36 @@ private extension MenuData {
 private extension MenuData {
     
     static func categoryData() -> [FertilityInput] {
-        return [FertilityInput(name: "Dry", isCategory: true, category: "none", isLength:false),
-                FertilityInput(name: "Bleeding", isCategory: true, category: "none", isLength:false),
-                FertilityInput(name: "Mucus", isCategory: true, category: "none", isLength:false),
-                FertilityInput(name: "Lubrication", isCategory: true, category: "none", isLength:false)]
+        return [FertilityInput(name: FertilityInput.Name.dry, isCategory: true, category: FertilityInput.Category.none, isLength:false),
+                FertilityInput(name: FertilityInput.Name.bleeding, isCategory: true, category: FertilityInput.Category.none, isLength:false),
+                FertilityInput(name: FertilityInput.Name.mucus, isCategory: true, category: FertilityInput.Category.none, isLength:false),
+                FertilityInput(name: FertilityInput.Name.lubrication, isCategory: true, category: FertilityInput.Category.none, isLength:false)]
     }
     
     static func bleedingSubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: "Heavy", isCategory: false, category: "Bleeding", isLength:false),
-                FertilityInput(name: "Moderate", isCategory: false, category: "Bleeding", isLength:false),
-                FertilityInput(name: "Light", isCategory: false, category: "Bleeding", isLength:false),
-                FertilityInput(name: "Very Light", isCategory: false, category: "Bleeding", isLength:false),
-                FertilityInput(name: "Brown", isCategory: false, category: "Bleeding", isLength:false)]
+        return [FertilityInput(name: FertilityInput.Name.heavy, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
+                FertilityInput(name: FertilityInput.Name.moderate, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
+                FertilityInput(name: FertilityInput.Name.light, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
+                FertilityInput(name: FertilityInput.Name.veryLight, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
+                FertilityInput(name: FertilityInput.Name.brown, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false)]
     }
     
     static func drySubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: "Damp", isCategory: false, category: "Dry", isLength:false),
-                FertilityInput(name: "Shiny", isCategory: false, category: "Dry", isLength:false),
-                FertilityInput(name: "Wet", isCategory: false, category: "Dry", isLength:false)]
+        return [FertilityInput(name: FertilityInput.Name.damp, isCategory: false, category: FertilityInput.Category.dry, isLength:false),
+                FertilityInput(name: FertilityInput.Name.shiny, isCategory: false, category: FertilityInput.Category.dry, isLength:false),
+                FertilityInput(name: FertilityInput.Name.wet, isCategory: false, category: FertilityInput.Category.dry, isLength:false)]
     }
     
     static func mucusSubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: "1/4 Inch", isCategory: false, category: "Mucus", isLength: true),
-                FertilityInput(name: "1/2 to 3/4 inch", isCategory: false, category: "Mucus", isLength: true),
-                FertilityInput(name: "Greater than 1 inch", isCategory: false, category: "Mucus", isLength: true),
-                FertilityInput(name: "Clear", isCategory: false, category: "Mucus", isLength:false),
-                FertilityInput(name: "Cloudy/Clear", isCategory: false, category: "Mucus", isLength:false),
-                FertilityInput(name: "Cloudy", isCategory: false, category: "Mucus", isLength:false),
-                FertilityInput(name: "Yellow", isCategory: false, category: "Mucus", isLength:false),
-                FertilityInput(name: "Brown", isCategory: false, category: "Mucus", isLength:false),
-                FertilityInput(name: "Pasty", isCategory: false, category: "Mucus", isLength:false)]
+        return [FertilityInput(name: FertilityInput.Name.quarterInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
+                FertilityInput(name: FertilityInput.Name.halfToThreeQuarterInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
+                FertilityInput(name: FertilityInput.Name.oneInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
+                FertilityInput(name: FertilityInput.Name.clear, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: FertilityInput.Name.cloudyClear, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name:FertilityInput.Name.cloudy, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: FertilityInput.Name.yellow, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: FertilityInput.Name.brown, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
+                FertilityInput(name: FertilityInput.Name.pasty, isCategory: false, category: FertilityInput.Category.mucus, isLength:false)]
+
     }
 }
