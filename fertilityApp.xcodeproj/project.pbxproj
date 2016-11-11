@@ -16,6 +16,7 @@
 		BA5D1B541DD66334006060CD /* InputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A4DCA1D871915008F500B /* InputTableViewController.swift */; };
 		BA5D1B551DD6633A006060CD /* InputTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */; };
 		BA5D1B561DD66342006060CD /* InputContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */; };
+		BA5D1B581DD6721D006060CD /* InputTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D1B571DD6721D006060CD /* InputTableViewFooter.swift */; };
 		BA66C88E1D999247003B9D3C /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66C88D1D999247003B9D3C /* Day.swift */; };
 		BA88EFB91DA3E34700E9CB12 /* fertilityAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFB81DA3E34700E9CB12 /* fertilityAppTests.swift */; };
 		BA88EFC01DA3E47900E9CB12 /* inputViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFB01DA3E29F00E9CB12 /* inputViewControllerTests.swift */; };
@@ -64,6 +65,7 @@
 		BA0A4DCA1D871915008F500B /* InputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewController.swift; sourceTree = "<group>"; };
 		BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
 		BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewHeader.swift; sourceTree = "<group>"; };
+		BA5D1B571DD6721D006060CD /* InputTableViewFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewFooter.swift; sourceTree = "<group>"; };
 		BA66C88D1D999247003B9D3C /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		BA88EFB01DA3E29F00E9CB12 /* inputViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = inputViewControllerTests.swift; path = ../inputViewControllerTests.swift; sourceTree = "<group>"; };
 		BA88EFB61DA3E34700E9CB12 /* fertilityAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fertilityAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 				BA0A4DCA1D871915008F500B /* InputTableViewController.swift */,
 				BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */,
 				BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */,
+				BA5D1B571DD6721D006060CD /* InputTableViewFooter.swift */,
 				BA66C88D1D999247003B9D3C /* Day.swift */,
 				BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */,
 				BADE23141DCCD24400D806A8 /* PersistMenuData.swift */,
@@ -296,6 +299,7 @@
 				BA5D1B551DD6633A006060CD /* InputTableViewHeader.swift in Sources */,
 				BA88EFC31DA838F900E9CB12 /* FertilitySignViewController.swift in Sources */,
 				BAF4DFA81D89A3CA003AA820 /* BackgroundImage.swift in Sources */,
+				BA5D1B581DD6721D006060CD /* InputTableViewFooter.swift in Sources */,
 				BAF4DFAA1D89A482003AA820 /* LaunchViewController.swift in Sources */,
 				BADE23151DCCD24400D806A8 /* PersistMenuData.swift in Sources */,
 			);

@@ -8,13 +8,12 @@
 
 import UIKit
 
-class InputTableViewController: UITableViewController, TableViewCellDelegate, InputTableViewHeaderDelegate {
+class InputTableViewController: UITableViewController, TableViewCellDelegate, InputTableViewHeaderDelegate, InputTableViewFooterDelegate {
     @IBOutlet var inputTableView: UITableView!
     var menuData = MenuData()
     var persistMenuData = PersistMenuData()
     var headerView = InputTableViewHeader()
-    
-//    var validationLabel = UILabel()
+    var footerView = InputTableViewFooter()
     var date = Date()
 
     override func viewDidLoad() {
@@ -25,22 +24,22 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         inputTableView.backgroundColor = UIColor.white
         
         //set up header view
-        let screenSize: CGRect = UIScreen.main.bounds
+        //let screenSize: CGRect = UIScreen.main.bounds
         headerView.delegate = self
         inputTableView.tableHeaderView = headerView
         //To make the table view not underlap the battery bar and the tab bar
         inputTableView.contentInset = UIEdgeInsetsMake(20, 0, 50, 0)
         
-        //set up footerview for tableview
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 250))
-        let datePicker: UIDatePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        datePicker.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 200)
-        datePicker.timeZone = TimeZone.autoupdatingCurrent
-        datePicker.backgroundColor = UIColor.white
-        datePicker.addTarget(self, action: #selector(InputTableViewController.datePickerValueChanged(_:)), for: .valueChanged)
-        footerView.addSubview(datePicker)
-        
+        //set up footerview
+//        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 250))
+//        let datePicker: UIDatePicker = UIDatePicker()
+//        datePicker.datePickerMode = .date
+//        datePicker.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 200)
+//        datePicker.timeZone = TimeZone.autoupdatingCurrent
+//        datePicker.backgroundColor = UIColor.white
+//        datePicker.addTarget(self, action: #selector(InputTableViewController.datePickerValueChanged(_:)), for: .valueChanged)
+//        footerView.addSubview(datePicker)
+        footerView.delegate = self
         inputTableView.tableFooterView = footerView
         
     }
