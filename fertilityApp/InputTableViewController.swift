@@ -12,8 +12,9 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
     @IBOutlet var inputTableView: UITableView!
     var menuData = MenuData()
     var persistMenuData = PersistMenuData()
+    var headerView = InputTableViewHeader()
     
-    var validationLabel = UILabel()
+//    var validationLabel = UILabel()
     var date = Date()
 
     override func viewDidLoad() {
@@ -25,19 +26,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         
         //set up header view
         let screenSize: CGRect = UIScreen.main.bounds
-        let headerView = InputTableViewHeader()
         headerView.delegate = self
-        
-//        validationLabel = UILabel(frame: CGRect(x: screenSize.width*(0.1), y: 110, width: screenSize.width*(0.8), height: 60))
-//        validationLabel.text = ""
-//        validationLabel.numberOfLines = 0
-//        validationLabel.textAlignment = NSTextAlignment.center
-//        validationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-//        validationLabel.font = UIFont(descriptor: JennaSue, size: 17);
-        
-        //headerView.addSubview(button)
-//        headerView.addSubview(validationLabel)
-        //headerView.addSubview(heartButton)
         inputTableView.tableHeaderView = headerView
         //To make the table view not underlap the battery bar and the tab bar
         inputTableView.contentInset = UIEdgeInsetsMake(20, 0, 50, 0)
@@ -62,24 +51,24 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         menuData.heartTouched = !menuData.heartTouched
     }
     
+    func validationLabelText() -> Bool {
+        let text = menuData.validateInputs(menuData.selectedElements())
+        headerView.addValidationText(text: text)
+        return text.characters.count == 0
+    }
+    
     func datePickerValueChanged(_ sender: UIDatePicker){
         
         date = sender.date
     }
     
     func saveButtonAction(_ sender: UIButton!) {
-        validationLabel.text = ""
-        let selectedArray = menuData.selectedElements()
-        
-        //Validate inputs, which also sorts them
-        validationLabel.text = menuData.validateInputs(selectedArray)
-        
+       
         //If no validation label is generated, then inputs are valid.
-        if validationLabel.text == "" {
-            persistMenuData.addNewUserInput(selectedArray, menuData:menuData, date:date)
+        if validationLabelText() {
+        persistMenuData.addNewUserInput(menuData.selectedElements(), menuData:menuData, date:date)
             persistMenuData.saveDays()
             goToCycleView()
-            
             
             //clear existing selections in tableView
             menuData.removeAnySubInputsFromFertilityArray()
