@@ -13,6 +13,8 @@
 		BA0A4DC21D870AB9008F500B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA0A4DC01D870AB9008F500B /* LaunchScreen.storyboard */; };
 		BA0A4DCC1D871915008F500B /* InputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A4DCA1D871915008F500B /* InputTableViewController.swift */; };
 		BA0A4DCE1D8721FA008F500B /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */; };
+		BA5157771DD6453D004B79F2 /* InputTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */; };
+		BA5157781DD6453D004B79F2 /* InputTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */; };
 		BA66C88E1D999247003B9D3C /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66C88D1D999247003B9D3C /* Day.swift */; };
 		BA88EFB91DA3E34700E9CB12 /* fertilityAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFB81DA3E34700E9CB12 /* fertilityAppTests.swift */; };
 		BA88EFC01DA3E47900E9CB12 /* inputViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFB01DA3E29F00E9CB12 /* inputViewControllerTests.swift */; };
@@ -66,6 +68,7 @@
 		BA0A4DC31D870AB9008F500B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA0A4DCA1D871915008F500B /* InputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewController.swift; sourceTree = "<group>"; };
 		BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
+		BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewHeader.swift; sourceTree = "<group>"; };
 		BA66C88D1D999247003B9D3C /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		BA88EFB01DA3E29F00E9CB12 /* inputViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = inputViewControllerTests.swift; path = ../inputViewControllerTests.swift; sourceTree = "<group>"; };
 		BA88EFB61DA3E34700E9CB12 /* fertilityAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fertilityAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +129,7 @@
 				BADE23101DCBB33F00D806A8 /* FertilityInput.swift */,
 				BA88EFC21DA838F800E9CB12 /* FertilitySignViewController.swift */,
 				BA0A4DCA1D871915008F500B /* InputTableViewController.swift */,
+				BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */,
 				BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */,
 				BA66C88D1D999247003B9D3C /* Day.swift */,
 				BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */,
@@ -294,6 +298,7 @@
 				BA0A4DB61D870AB8008F500B /* AppDelegate.swift in Sources */,
 				BAFE416B1D8B3A34002DA808 /* CycleTableViewController.swift in Sources */,
 				BA88EFC31DA838F900E9CB12 /* FertilitySignViewController.swift in Sources */,
+				BA5157771DD6453D004B79F2 /* InputTableViewHeader.swift in Sources */,
 				BAF4DFA81D89A3CA003AA820 /* BackgroundImage.swift in Sources */,
 				BA0A4DCC1D871915008F500B /* InputTableViewController.swift in Sources */,
 				BAF4DFAA1D89A482003AA820 /* LaunchViewController.swift in Sources */,
@@ -306,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA88EFB91DA3E34700E9CB12 /* fertilityAppTests.swift in Sources */,
+				BA5157781DD6453D004B79F2 /* InputTableViewHeader.swift in Sources */,
 				BA88EFC41DA838F900E9CB12 /* FertilitySignViewController.swift in Sources */,
 				BA88EFCA1DAD142B00E9CB12 /* Day.swift in Sources */,
 				BA88EFCB1DAD194000E9CB12 /* cycleTableViewCell.swift in Sources */,
