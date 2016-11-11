@@ -11,12 +11,14 @@ import UIKit
 protocol InputTableViewHeaderDelegate {
     func saveButtonAction(_ sender: UIButton!)
     func heartButtonAction(_ sender: UIButton!)
+    func validationLabelText() -> Bool
 }
 
 class InputTableViewHeader: UIView {
     
     let screenSize: CGRect = UIScreen.main.bounds
     var delegate: InputTableViewHeaderDelegate?
+    var validationLabel = UILabel()
 
     // Mark: Initialization
     required init?(coder aDecoder: NSCoder) {
@@ -29,9 +31,13 @@ class InputTableViewHeader: UIView {
         self.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 180)
         let saveButton = setupSaveButton()
         let heartButton = setupHeartButton()
+        validationLabel = setupValidationLabel()
         self.addSubview(saveButton)
         self.addSubview(heartButton)
+        self.addSubview(validationLabel)
     }
+    
+    // Mark: Setup Subviews
     
     func setupSaveButton() -> UIButton {
         let button = UIButton(frame: CGRect(x: screenSize.width*(0.1), y: 40, width: screenSize.width*(0.6), height: 60))
@@ -50,6 +56,22 @@ class InputTableViewHeader: UIView {
         return heartButton
     }
     
+    func setupValidationLabel() -> UILabel {
+        let validationLabel = UILabel(frame: CGRect(x: screenSize.width*(0.1), y: 110, width: screenSize.width*(0.8), height: 60))
+        validationLabel.text = ""
+        validationLabel.numberOfLines = 0
+        validationLabel.textAlignment = NSTextAlignment.center
+        validationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        validationLabel.font = UIFont(descriptor: JennaSue, size: 17);
+        return validationLabel
+    }
+    
+    // Mark: Delegate and related methods
+    
+    func addValidationText(text: String) {
+        validationLabel.text = text
+    }
+    
     func saveButtonActionWrapper(_ sender:UIButton!) {
         delegate?.saveButtonAction(sender)
     }
@@ -58,15 +80,5 @@ class InputTableViewHeader: UIView {
         delegate?.heartButtonAction(sender)
     }
     
-//    validationLabel = UILabel(frame: CGRect(x: screenSize.width*(0.1), y: 110, width: screenSize.width*(0.8), height: 60))
-//    validationLabel.text = ""
-//    validationLabel.numberOfLines = 0
-//    validationLabel.textAlignment = NSTextAlignment.center
-//    validationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-//    //        validationLabel.font = UIFont(descriptor: JennaSue, size: 17);
-//    
-//    headerView.addSubview(button)
-//    headerView.addSubview(validationLabel)
-//    headerView.addSubview(heartButton)
 
 }

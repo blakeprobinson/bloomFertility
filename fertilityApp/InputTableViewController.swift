@@ -8,12 +8,12 @@
 
 import UIKit
 
-class InputTableViewController: UITableViewController, TableViewCellDelegate, InputTableViewHeaderDelegate {
+class InputTableViewController: UITableViewController, TableViewCellDelegate, InputTableViewHeaderDelegate, InputTableViewFooterDelegate {
     @IBOutlet var inputTableView: UITableView!
     var menuData = MenuData()
     var persistMenuData = PersistMenuData()
-    
-    var validationLabel = UILabel()
+    var headerView = InputTableViewHeader()
+    var footerView = InputTableViewFooter()
     var date = Date()
 
     override func viewDidLoad() {
@@ -22,48 +22,13 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         inputTableView.separatorStyle = .none
         inputTableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
         inputTableView.backgroundColor = UIColor.white
-        
-        //set up header view
-        let screenSize: CGRect = UIScreen.main.bounds
-        let headerView = InputTableViewHeader()
-        headerView.delegate = self
-        
-//        let button = UIButton(frame: CGRect(x: screenSize.width*(0.1), y: 40, width: screenSize.width*(0.6), height: 60))
-//        
-//        button.backgroundColor = UIColor(red: 109.0/255, green: 228/250.0, blue: 209/255.0, alpha: 1.0)
-//        button.setTitle("Save", for: UIControlState())
-//        button.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
-//        
-//        let image = UIImage(named: "heart emoji")
-//        let heartButton   = UIButton(type: UIButtonType.custom)
-//        heartButton.frame = CGRect(x: screenSize.width*(0.75), y: 50, width: screenSize.width*(0.15), height: 50)
-//        heartButton.setImage(image, for: UIControlState())
-//        heartButton.addTarget(self, action: #selector(InputTableViewController.heartButtonAction(_:)), for:.touchUpInside)
-        
-        validationLabel = UILabel(frame: CGRect(x: screenSize.width*(0.1), y: 110, width: screenSize.width*(0.8), height: 60))
-        validationLabel.text = ""
-        validationLabel.numberOfLines = 0
-        validationLabel.textAlignment = NSTextAlignment.center
-        validationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-//        validationLabel.font = UIFont(descriptor: JennaSue, size: 17);
-        
-        //headerView.addSubview(button)
-        headerView.addSubview(validationLabel)
-        //headerView.addSubview(heartButton)
-        inputTableView.tableHeaderView = headerView
-        //To make the table view not underlap the battery bar and the tab bar
         inputTableView.contentInset = UIEdgeInsetsMake(20, 0, 50, 0)
         
-        //set up footerview for tableview
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 250))
-        let datePicker: UIDatePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        datePicker.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 200)
-        datePicker.timeZone = TimeZone.autoupdatingCurrent
-        datePicker.backgroundColor = UIColor.white
-        datePicker.addTarget(self, action: #selector(InputTableViewController.datePickerValueChanged(_:)), for: .valueChanged)
-        footerView.addSubview(datePicker)
+        //set up header view and footer view
+        headerView.delegate = self
+        inputTableView.tableHeaderView = headerView
         
+        footerView.delegate = self
         inputTableView.tableFooterView = footerView
         
     }
@@ -74,24 +39,24 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         menuData.heartTouched = !menuData.heartTouched
     }
     
+    func validationLabelText() -> Bool {
+        let text = menuData.validateInputs(menuData.selectedElements())
+        headerView.addValidationText(text: text)
+        return text.characters.count == 0
+    }
+    
     func datePickerValueChanged(_ sender: UIDatePicker){
         
         date = sender.date
     }
     
     func saveButtonAction(_ sender: UIButton!) {
-        validationLabel.text = ""
-        let selectedArray = menuData.selectedElements()
-        
-        //Validate inputs, which also sorts them
-        validationLabel.text = menuData.validateInputs(selectedArray)
-        
+       
         //If no validation label is generated, then inputs are valid.
-        if validationLabel.text == "" {
-            persistMenuData.addNewUserInput(selectedArray, menuData:menuData, date:date)
+        if validationLabelText() {
+        persistMenuData.addNewUserInput(menuData.selectedElements(), menuData:menuData, date:date)
             persistMenuData.saveDays()
             goToCycleView()
-            
             
             //clear existing selections in tableView
             menuData.removeAnySubInputsFromFertilityArray()

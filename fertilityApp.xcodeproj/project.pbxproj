@@ -11,25 +11,21 @@
 		BA0A4DBD1D870AB8008F500B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA0A4DBB1D870AB8008F500B /* Main.storyboard */; };
 		BA0A4DBF1D870AB8008F500B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA0A4DBE1D870AB8008F500B /* Assets.xcassets */; };
 		BA0A4DC21D870AB9008F500B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA0A4DC01D870AB9008F500B /* LaunchScreen.storyboard */; };
-		BA0A4DCC1D871915008F500B /* InputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A4DCA1D871915008F500B /* InputTableViewController.swift */; };
 		BA0A4DCE1D8721FA008F500B /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */; };
-		BA5157771DD6453D004B79F2 /* InputTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */; };
-		BA5157781DD6453D004B79F2 /* InputTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */; };
+		BA5D1B531DD6632E006060CD /* JennaSue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAF4DFA51D899FD8003AA820 /* JennaSue.ttf */; };
+		BA5D1B541DD66334006060CD /* InputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A4DCA1D871915008F500B /* InputTableViewController.swift */; };
+		BA5D1B551DD6633A006060CD /* InputTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */; };
+		BA5D1B561DD66342006060CD /* InputContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */; };
+		BA5D1B581DD6721D006060CD /* InputTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D1B571DD6721D006060CD /* InputTableViewFooter.swift */; };
 		BA66C88E1D999247003B9D3C /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66C88D1D999247003B9D3C /* Day.swift */; };
 		BA88EFB91DA3E34700E9CB12 /* fertilityAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFB81DA3E34700E9CB12 /* fertilityAppTests.swift */; };
 		BA88EFC01DA3E47900E9CB12 /* inputViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFB01DA3E29F00E9CB12 /* inputViewControllerTests.swift */; };
 		BA88EFC11DA3F69E00E9CB12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA0A4DBB1D870AB8008F500B /* Main.storyboard */; };
 		BA88EFC31DA838F900E9CB12 /* FertilitySignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFC21DA838F800E9CB12 /* FertilitySignViewController.swift */; };
-		BA88EFC41DA838F900E9CB12 /* FertilitySignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFC21DA838F800E9CB12 /* FertilitySignViewController.swift */; };
-		BA88EFC61DAC0F2200E9CB12 /* InputContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */; };
-		BA88EFC81DAD13C800E9CB12 /* InputContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */; };
 		BA88EFC91DAD13E400E9CB12 /* CycleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE416A1D8B3A34002DA808 /* CycleTableViewController.swift */; };
-		BA88EFCA1DAD142B00E9CB12 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA66C88D1D999247003B9D3C /* Day.swift */; };
-		BA88EFCB1DAD194000E9CB12 /* cycleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE416C1D8B3ACF002DA808 /* cycleTableViewCell.swift */; };
 		BADE23111DCBB33F00D806A8 /* FertilityInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE23101DCBB33F00D806A8 /* FertilityInput.swift */; };
 		BADE23131DCBB7D900D806A8 /* MenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE23121DCBB7D900D806A8 /* MenuData.swift */; };
 		BADE23151DCCD24400D806A8 /* PersistMenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE23141DCCD24400D806A8 /* PersistMenuData.swift */; };
-		BAF4DFA61D899FD8003AA820 /* JennaSue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAF4DFA51D899FD8003AA820 /* JennaSue.ttf */; };
 		BAF4DFA81D89A3CA003AA820 /* BackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF4DFA71D89A3CA003AA820 /* BackgroundImage.swift */; };
 		BAF4DFAA1D89A482003AA820 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF4DFA91D89A482003AA820 /* LaunchViewController.swift */; };
 		BAFE416B1D8B3A34002DA808 /* CycleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE416A1D8B3A34002DA808 /* CycleTableViewController.swift */; };
@@ -69,6 +65,7 @@
 		BA0A4DCA1D871915008F500B /* InputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewController.swift; sourceTree = "<group>"; };
 		BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
 		BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewHeader.swift; sourceTree = "<group>"; };
+		BA5D1B571DD6721D006060CD /* InputTableViewFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewFooter.swift; sourceTree = "<group>"; };
 		BA66C88D1D999247003B9D3C /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		BA88EFB01DA3E29F00E9CB12 /* inputViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = inputViewControllerTests.swift; path = ../inputViewControllerTests.swift; sourceTree = "<group>"; };
 		BA88EFB61DA3E34700E9CB12 /* fertilityAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fertilityAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +128,7 @@
 				BA0A4DCA1D871915008F500B /* InputTableViewController.swift */,
 				BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */,
 				BA88EFC51DAC0F2200E9CB12 /* InputContainerViewController.swift */,
+				BA5D1B571DD6721D006060CD /* InputTableViewFooter.swift */,
 				BA66C88D1D999247003B9D3C /* Day.swift */,
 				BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */,
 				BADE23141DCCD24400D806A8 /* PersistMenuData.swift */,
@@ -252,7 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA0A4DC21D870AB9008F500B /* LaunchScreen.storyboard in Resources */,
-				BAF4DFA61D899FD8003AA820 /* JennaSue.ttf in Resources */,
+				BA5D1B531DD6632E006060CD /* JennaSue.ttf in Resources */,
 				BA0A4DBF1D870AB8008F500B /* Assets.xcassets in Resources */,
 				BA0A4DBD1D870AB8008F500B /* Main.storyboard in Resources */,
 			);
@@ -289,18 +287,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA5D1B541DD66334006060CD /* InputTableViewController.swift in Sources */,
 				BA66C88E1D999247003B9D3C /* Day.swift in Sources */,
 				BA0A4DCE1D8721FA008F500B /* InputTableViewCell.swift in Sources */,
 				BAFE416D1D8B3ACF002DA808 /* cycleTableViewCell.swift in Sources */,
-				BA88EFC61DAC0F2200E9CB12 /* InputContainerViewController.swift in Sources */,
 				BADE23131DCBB7D900D806A8 /* MenuData.swift in Sources */,
+				BA5D1B561DD66342006060CD /* InputContainerViewController.swift in Sources */,
 				BADE23111DCBB33F00D806A8 /* FertilityInput.swift in Sources */,
 				BA0A4DB61D870AB8008F500B /* AppDelegate.swift in Sources */,
 				BAFE416B1D8B3A34002DA808 /* CycleTableViewController.swift in Sources */,
+				BA5D1B551DD6633A006060CD /* InputTableViewHeader.swift in Sources */,
 				BA88EFC31DA838F900E9CB12 /* FertilitySignViewController.swift in Sources */,
-				BA5157771DD6453D004B79F2 /* InputTableViewHeader.swift in Sources */,
 				BAF4DFA81D89A3CA003AA820 /* BackgroundImage.swift in Sources */,
-				BA0A4DCC1D871915008F500B /* InputTableViewController.swift in Sources */,
+				BA5D1B581DD6721D006060CD /* InputTableViewFooter.swift in Sources */,
 				BAF4DFAA1D89A482003AA820 /* LaunchViewController.swift in Sources */,
 				BADE23151DCCD24400D806A8 /* PersistMenuData.swift in Sources */,
 			);
@@ -311,13 +310,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA88EFB91DA3E34700E9CB12 /* fertilityAppTests.swift in Sources */,
-				BA5157781DD6453D004B79F2 /* InputTableViewHeader.swift in Sources */,
-				BA88EFC41DA838F900E9CB12 /* FertilitySignViewController.swift in Sources */,
-				BA88EFCA1DAD142B00E9CB12 /* Day.swift in Sources */,
-				BA88EFCB1DAD194000E9CB12 /* cycleTableViewCell.swift in Sources */,
 				BA88EFC91DAD13E400E9CB12 /* CycleTableViewController.swift in Sources */,
 				BA88EFC01DA3E47900E9CB12 /* inputViewControllerTests.swift in Sources */,
-				BA88EFC81DAD13C800E9CB12 /* InputContainerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
