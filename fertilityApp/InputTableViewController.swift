@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InputTableViewController: UITableViewController, TableViewCellDelegate, InputTableViewHeaderProtocol {
+class InputTableViewController: UITableViewController, TableViewCellDelegate, InputTableViewHeaderDelegate {
     @IBOutlet var inputTableView: UITableView!
     var menuData = MenuData()
     var persistMenuData = PersistMenuData()
@@ -26,6 +26,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         //set up header view
         let screenSize: CGRect = UIScreen.main.bounds
         let headerView = InputTableViewHeader()
+        headerView.delegate = self
         
 //        let button = UIButton(frame: CGRect(x: screenSize.width*(0.1), y: 40, width: screenSize.width*(0.6), height: 60))
 //        
@@ -101,9 +102,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
     func goToCycleView() {
         if let cycleViewController = tabBarController?.viewControllers![1] {
             cycleViewController.viewWillAppear(true)
-            if var selectedIndex = tabBarController?.selectedIndex {
-                selectedIndex = 1
-            }
+            tabBarController?.selectedIndex = 1
         }
         
     }
