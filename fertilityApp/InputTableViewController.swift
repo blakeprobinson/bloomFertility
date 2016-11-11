@@ -28,27 +28,15 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         let headerView = InputTableViewHeader()
         headerView.delegate = self
         
-//        let button = UIButton(frame: CGRect(x: screenSize.width*(0.1), y: 40, width: screenSize.width*(0.6), height: 60))
-//        
-//        button.backgroundColor = UIColor(red: 109.0/255, green: 228/250.0, blue: 209/255.0, alpha: 1.0)
-//        button.setTitle("Save", for: UIControlState())
-//        button.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
-//        
-//        let image = UIImage(named: "heart emoji")
-//        let heartButton   = UIButton(type: UIButtonType.custom)
-//        heartButton.frame = CGRect(x: screenSize.width*(0.75), y: 50, width: screenSize.width*(0.15), height: 50)
-//        heartButton.setImage(image, for: UIControlState())
-//        heartButton.addTarget(self, action: #selector(InputTableViewController.heartButtonAction(_:)), for:.touchUpInside)
-        
-        validationLabel = UILabel(frame: CGRect(x: screenSize.width*(0.1), y: 110, width: screenSize.width*(0.8), height: 60))
-        validationLabel.text = ""
-        validationLabel.numberOfLines = 0
-        validationLabel.textAlignment = NSTextAlignment.center
-        validationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        validationLabel = UILabel(frame: CGRect(x: screenSize.width*(0.1), y: 110, width: screenSize.width*(0.8), height: 60))
+//        validationLabel.text = ""
+//        validationLabel.numberOfLines = 0
+//        validationLabel.textAlignment = NSTextAlignment.center
+//        validationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
 //        validationLabel.font = UIFont(descriptor: JennaSue, size: 17);
         
         //headerView.addSubview(button)
-        headerView.addSubview(validationLabel)
+//        headerView.addSubview(validationLabel)
         //headerView.addSubview(heartButton)
         inputTableView.tableHeaderView = headerView
         //To make the table view not underlap the battery bar and the tab bar

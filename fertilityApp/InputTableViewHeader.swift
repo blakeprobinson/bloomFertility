@@ -29,8 +29,10 @@ class InputTableViewHeader: UIView {
         self.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 180)
         let saveButton = setupSaveButton()
         let heartButton = setupHeartButton()
+        let validationLabel = setupValidationLabel()
         self.addSubview(saveButton)
         self.addSubview(heartButton)
+        self.addSubview(validationLabel)
     }
     
     func setupSaveButton() -> UIButton {
@@ -50,6 +52,16 @@ class InputTableViewHeader: UIView {
         return heartButton
     }
     
+    func setupValidationLabel() -> UILabel {
+        let validationLabel = UILabel(frame: CGRect(x: screenSize.width*(0.1), y: 110, width: screenSize.width*(0.8), height: 60))
+        validationLabel.text = ""
+        validationLabel.numberOfLines = 0
+        validationLabel.textAlignment = NSTextAlignment.center
+        validationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        validationLabel.font = UIFont(descriptor: Helvetica, size: 17);
+        return validationLabel
+    }
+    
     func saveButtonActionWrapper(_ sender:UIButton!) {
         delegate?.saveButtonAction(sender)
     }
@@ -58,13 +70,8 @@ class InputTableViewHeader: UIView {
         delegate?.heartButtonAction(sender)
     }
     
-//    validationLabel = UILabel(frame: CGRect(x: screenSize.width*(0.1), y: 110, width: screenSize.width*(0.8), height: 60))
-//    validationLabel.text = ""
-//    validationLabel.numberOfLines = 0
-//    validationLabel.textAlignment = NSTextAlignment.center
-//    validationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-//    //        validationLabel.font = UIFont(descriptor: JennaSue, size: 17);
-//    
+    
+//
 //    headerView.addSubview(button)
 //    headerView.addSubview(validationLabel)
 //    headerView.addSubview(heartButton)
