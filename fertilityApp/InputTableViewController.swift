@@ -22,23 +22,12 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         inputTableView.separatorStyle = .none
         inputTableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
         inputTableView.backgroundColor = UIColor.white
-        
-        //set up header view
-        //let screenSize: CGRect = UIScreen.main.bounds
-        headerView.delegate = self
-        inputTableView.tableHeaderView = headerView
-        //To make the table view not underlap the battery bar and the tab bar
         inputTableView.contentInset = UIEdgeInsetsMake(20, 0, 50, 0)
         
-        //set up footerview
-//        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 250))
-//        let datePicker: UIDatePicker = UIDatePicker()
-//        datePicker.datePickerMode = .date
-//        datePicker.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 200)
-//        datePicker.timeZone = TimeZone.autoupdatingCurrent
-//        datePicker.backgroundColor = UIColor.white
-//        datePicker.addTarget(self, action: #selector(InputTableViewController.datePickerValueChanged(_:)), for: .valueChanged)
-//        footerView.addSubview(datePicker)
+        //set up header view and footer view
+        headerView.delegate = self
+        inputTableView.tableHeaderView = headerView
+        
         footerView.delegate = self
         inputTableView.tableFooterView = footerView
         
