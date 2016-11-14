@@ -20,6 +20,26 @@ class FertilityInput: NSObject {
         case bleeding, dry, mucus, none
     }
     
+    //Potential Replacement for FertilityInput class
+    struct FertilityInputTemp {
+        enum Bleeding:String {
+            case heavy, moderate, light, veryLight = "very light", brown
+        }
+        
+        enum Dry:String {
+            case damp, shiny, wet
+        }
+        
+        struct Mucus {
+            enum length:String {
+                case quarterInch = "1/4 Inch", halfToThreeQuarterInch = "1/2 to 3/4 inch", oneInch = "greater than 1 inch"
+            }
+            enum color:String {
+                case clear, cloudyClear = "cloudy/clear", cloudy, yellow, pasty, none
+            }
+        }
+    }
+    
     enum Name:String {
         case dry, bleeding, mucus, lubrication, heavy, moderate, light, veryLight = "very light", brown, damp, shiny, wet, quarterInch = "1/4 Inch", halfToThreeQuarterInch = "1/2 to 3/4 inch", oneInch = "greater than 1 inch", clear, cloudyClear = "cloudy/clear", cloudy, yellow, pasty, none
     }
