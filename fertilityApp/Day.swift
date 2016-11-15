@@ -14,34 +14,7 @@ class Day: NSObject, NSCoding {
     
     //This function and the function below will be needed when we allow users to input data
     //from different dates.  For now they can't do that.
-    class func saveDays(_ days:Array<Day>) {
-        
-        if days.count >= 2 {
-            let firstDate = days[days.count-1].date
-            let secondDate = days[days.count-2].date
-            let daysBetweenDates = Day.determineDaysBetweenDates(firstDate,secondDate: secondDate)
-            if daysBetweenDates > 0 {
-                let filledInDays = Day.addDaysToArray(days, daysBetweenDates: daysBetweenDates)
-                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(filledInDays, toFile: Day.ArchiveURL.path)
-                if !isSuccessfulSave {
-                    print("Failed to save days...")
-                }
-            } else {
-                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path)
-                
-                if !isSuccessfulSave {
-                    print("Failed to save days...")
-                }
-            }
-        } else {
-            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path)
-            
-            if !isSuccessfulSave {
-                print("Failed to save days...")
-            }
-        }
-        
-    }
+    
     
     class func addDaysToArray(_ days:Array<Day>, daysBetweenDates:Int) -> Array<Day> {
         
@@ -52,7 +25,7 @@ class Day: NSObject, NSCoding {
         
         var currentDay = days[days.count-2].date
         
-        for index in 1...daysBetweenDates {
+        for _ in 1...daysBetweenDates {
             let nextDay = (Calendar.current as NSCalendar)
                 .date(
                     byAdding: .day,
@@ -265,7 +238,36 @@ class Day: NSObject, NSCoding {
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("days")
-
-    // MARK: Utility methods
     
+}
+
+extension Day {
+    class func saveDays(_ days:Array<Day>) {
+        
+        if days.count >= 2 {
+            let firstDate = days[days.count-1].date
+            let secondDate = days[days.count-2].date
+            let daysBetweenDates = Day.determineDaysBetweenDates(firstDate,secondDate: secondDate)
+            if daysBetweenDates > 0 {
+                let filledInDays = Day.addDaysToArray(days, daysBetweenDates: daysBetweenDates)
+                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(filledInDays, toFile: Day.ArchiveURL.path)
+                if !isSuccessfulSave {
+                    print("Failed to save days...")
+                }
+            } else {
+                let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path)
+                
+                if !isSuccessfulSave {
+                    print("Failed to save days...")
+                }
+            }
+        } else {
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(days, toFile: Day.ArchiveURL.path)
+            
+            if !isSuccessfulSave {
+                print("Failed to save days...")
+            }
+        }
+        
+    }
 }

@@ -15,6 +15,7 @@ class FertilityInput: NSObject {
     var isCategory: Bool
     var category:Category
     var isLength: Bool
+    let requiredInput:RequiredInput?
     
     enum Category:String {
         case bleeding, dry, mucus, none
@@ -25,7 +26,7 @@ class FertilityInput: NSObject {
     }
     
     
-    init(name:Name, isCategory:Bool, category:Category, isLength:Bool) {
+    init(name:Name, isCategory:Bool, category:Category, isLength:Bool, requiredInput:RequiredInput?) {
         self.name = name
         self.isCategory = (isCategory)
         self.category = category
@@ -36,6 +37,7 @@ class FertilityInput: NSObject {
 //        }
         self.selected = false
         self.isLength = isLength
+        self.requiredInput = requiredInput
         super.init()
     }
 
