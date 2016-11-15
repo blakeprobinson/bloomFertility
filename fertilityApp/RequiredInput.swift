@@ -8,13 +8,19 @@
 
 import Foundation
 
+//mucus has one or two associated values because
+//when a user selects mucus both a MucusInput.length
+//and a MucusInput.color are required.  When, however,
+//RequiredInputs are used to set up MenuData, only
+//one MucusInput can be associated with a RequiredInput
 
 enum RequiredInput {
     case bleeding(BleedingInput)
     case dry(DryInput)
-    case mucus(MucusColorInput, MucusLengthInput)
+    case mucus(MucusInput, MucusInput?)
 }
 
+//Enums for RequiredInput associated values
 extension RequiredInput {
     enum BleedingInput:String {
         case heavy, moderate, light, veryLight = "very light", brown
@@ -24,8 +30,16 @@ extension RequiredInput {
         case damp, shiny, wet
     }
     
+    enum MucusInput {
+        case color(MucusColorInput)
+        case length(MucusLengthInput)
+    }
+}
+
+//Enums for MucusInput associated values
+extension RequiredInput {
     enum MucusColorInput:String {
-        case clear, cloudyClear = "cloudy/clear", cloudy, yellow, pasty
+        case clear, cloudyClear = "cloudy/clear", cloudy, yellow, pasty, brown
     }
     
     enum MucusLengthInput:String {

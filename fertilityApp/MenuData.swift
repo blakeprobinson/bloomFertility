@@ -199,36 +199,58 @@ private extension MenuData {
 private extension MenuData {
     
     static func categoryData() -> [FertilityInput] {
-        return [FertilityInput(name: FertilityInput.Name.dry, isCategory: true, category: FertilityInput.Category.none, isLength:false),
-                FertilityInput(name: FertilityInput.Name.bleeding, isCategory: true, category: FertilityInput.Category.none, isLength:false),
-                FertilityInput(name: FertilityInput.Name.mucus, isCategory: true, category: FertilityInput.Category.none, isLength:false),
-                FertilityInput(name: FertilityInput.Name.lubrication, isCategory: true, category: FertilityInput.Category.none, isLength:false)]
+        return [FertilityInput(name: FertilityInput.Name.dry, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil),
+                FertilityInput(name: FertilityInput.Name.bleeding, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil),
+                FertilityInput(name: FertilityInput.Name.mucus, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil),
+                FertilityInput(name: FertilityInput.Name.lubrication, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil)]
     }
     
     static func bleedingSubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: FertilityInput.Name.heavy, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
-                FertilityInput(name: FertilityInput.Name.moderate, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
-                FertilityInput(name: FertilityInput.Name.light, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
-                FertilityInput(name: FertilityInput.Name.veryLight, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false),
-                FertilityInput(name: FertilityInput.Name.brown, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false)]
+        let bleedingArray = [RequiredInput.bleeding(RequiredInput.BleedingInput.heavy),
+                RequiredInput.bleeding(RequiredInput.BleedingInput.moderate),
+                RequiredInput.bleeding(RequiredInput.BleedingInput.light),
+                RequiredInput.bleeding(RequiredInput.BleedingInput.veryLight),
+                RequiredInput.bleeding(RequiredInput.BleedingInput.brown)]
+        
+        return [FertilityInput(name: FertilityInput.Name.heavy, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false, requiredInput: bleedingArray[0]),
+                FertilityInput(name: FertilityInput.Name.moderate, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false, requiredInput: bleedingArray[1]),
+                FertilityInput(name: FertilityInput.Name.light, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false, requiredInput: bleedingArray[2]),
+                FertilityInput(name: FertilityInput.Name.veryLight, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false, requiredInput: bleedingArray[3]),
+                FertilityInput(name: FertilityInput.Name.brown, isCategory: false, category: FertilityInput.Category.bleeding, isLength:false, requiredInput: bleedingArray[4])]
+        
     }
     
     static func drySubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: FertilityInput.Name.damp, isCategory: false, category: FertilityInput.Category.dry, isLength:false),
-                FertilityInput(name: FertilityInput.Name.shiny, isCategory: false, category: FertilityInput.Category.dry, isLength:false),
-                FertilityInput(name: FertilityInput.Name.wet, isCategory: false, category: FertilityInput.Category.dry, isLength:false)]
+        let dryArray = [RequiredInput.dry(RequiredInput.DryInput.damp),
+                RequiredInput.dry(RequiredInput.DryInput.shiny),
+                RequiredInput.dry(RequiredInput.DryInput.wet)]
+        
+        return [FertilityInput(name: FertilityInput.Name.damp, isCategory: false, category: FertilityInput.Category.dry, isLength:false, requiredInput:dryArray[0]),
+                FertilityInput(name: FertilityInput.Name.shiny, isCategory: false, category: FertilityInput.Category.dry, isLength:false, requiredInput:dryArray[1]),
+                FertilityInput(name: FertilityInput.Name.wet, isCategory: false, category: FertilityInput.Category.dry, isLength:false, requiredInput:dryArray[2])]
     }
     
     static func mucusSubCategory() -> [FertilityInput] {
-        return [FertilityInput(name: FertilityInput.Name.quarterInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
-                FertilityInput(name: FertilityInput.Name.halfToThreeQuarterInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
-                FertilityInput(name: FertilityInput.Name.oneInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true),
-                FertilityInput(name: FertilityInput.Name.clear, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
-                FertilityInput(name: FertilityInput.Name.cloudyClear, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
-                FertilityInput(name:FertilityInput.Name.cloudy, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
-                FertilityInput(name: FertilityInput.Name.yellow, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
-                FertilityInput(name: FertilityInput.Name.brown, isCategory: false, category: FertilityInput.Category.mucus, isLength:false),
-                FertilityInput(name: FertilityInput.Name.pasty, isCategory: false, category: FertilityInput.Category.mucus, isLength:false)]
+        let mucusArray = [RequiredInput.mucus(RequiredInput.MucusInput.length(RequiredInput.MucusLengthInput.quarterInch), nil),
+                RequiredInput.mucus(RequiredInput.MucusInput.length(RequiredInput.MucusLengthInput.halfToThreeQuarterInch), nil),
+                RequiredInput.mucus(RequiredInput.MucusInput.length(RequiredInput.MucusLengthInput.oneInch), nil),
+                RequiredInput.mucus(RequiredInput.MucusInput.color(RequiredInput.MucusColorInput.clear), nil),
+                RequiredInput.mucus(RequiredInput.MucusInput.color(RequiredInput.MucusColorInput.cloudyClear), nil),
+                RequiredInput.mucus(RequiredInput.MucusInput.color(RequiredInput.MucusColorInput.cloudy), nil),
+                RequiredInput.mucus(RequiredInput.MucusInput.color(RequiredInput.MucusColorInput.yellow), nil),
+                RequiredInput.mucus(RequiredInput.MucusInput.color(RequiredInput.MucusColorInput.pasty), nil),
+                RequiredInput.mucus(RequiredInput.MucusInput.color(RequiredInput.MucusColorInput.brown), nil)]
+        
+            
+        return [FertilityInput(name: FertilityInput.Name.quarterInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true, requiredInput:mucusArray[0]),
+                FertilityInput(name: FertilityInput.Name.halfToThreeQuarterInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true, requiredInput:mucusArray[1]),
+                FertilityInput(name: FertilityInput.Name.oneInch, isCategory: false, category: FertilityInput.Category.mucus, isLength: true, requiredInput:mucusArray[2]),
+                FertilityInput(name: FertilityInput.Name.clear, isCategory: false, category: FertilityInput.Category.mucus, isLength:false, requiredInput:mucusArray[3]),
+                FertilityInput(name: FertilityInput.Name.cloudyClear, isCategory: false, category: FertilityInput.Category.mucus, isLength:false, requiredInput:mucusArray[4]),
+                FertilityInput(name:FertilityInput.Name.cloudy, isCategory: false, category: FertilityInput.Category.mucus, isLength:false, requiredInput:mucusArray[5]),
+                FertilityInput(name: FertilityInput.Name.yellow, isCategory: false, category: FertilityInput.Category.mucus, isLength:false, requiredInput:mucusArray[6]),
+                FertilityInput(name: FertilityInput.Name.brown, isCategory: false, category: FertilityInput.Category.mucus, isLength:false, requiredInput:mucusArray[7]),
+                FertilityInput(name: FertilityInput.Name.pasty, isCategory: false, category: FertilityInput.Category.mucus, isLength:false, requiredInput:mucusArray[8])]
 
     }
 }
