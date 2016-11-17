@@ -13,10 +13,14 @@ struct InputViewModel {
     
     let name: String
     let color: UIColor
+    let selected: Bool
+    let isCategory: Bool
     
     init(input: FertilityInput) {
         self.name = input.name.rawValue
         self.color = InputViewModel.colorForCell(input)
+        self.selected = input.selected
+        self.isCategory = input.isCategory
     }
     
     private static func colorForCell(_ input: FertilityInput) -> UIColor {

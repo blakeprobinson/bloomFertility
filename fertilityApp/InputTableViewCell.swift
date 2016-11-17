@@ -31,9 +31,6 @@ class TableViewCell: UITableViewCell {
     // The item that this cell renders.
     var fertilityInput: FertilityInput? {
         willSet(newFertilityInput) {
-            if let newFertilityInput = newFertilityInput {
-                itemCompleteLayer.isHidden = !newFertilityInput.selected || newFertilityInput.isCategory
-            }
         }
     }
     
@@ -106,6 +103,7 @@ class TableViewCell: UITableViewCell {
     func configure(withViewModel viewModel: InputViewModel) {
         self.label.text = viewModel.name
         self.backgroundColor = viewModel.color
+        itemCompleteLayer.isHidden = !viewModel.selected || viewModel.isCategory
     }
     
     // utility method for creating the contextual cues
@@ -182,7 +180,6 @@ class TableViewCell: UITableViewCell {
                 // if the item is not being deleted or selected, snap back to the original location
                 UIView.animate(withDuration: 0.2, animations: {self.frame = originalFrame})
             }
-            
         }
     }
     
