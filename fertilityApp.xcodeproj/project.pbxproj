@@ -12,6 +12,7 @@
 		BA0A4DBF1D870AB8008F500B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA0A4DBE1D870AB8008F500B /* Assets.xcassets */; };
 		BA0A4DC21D870AB9008F500B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA0A4DC01D870AB9008F500B /* LaunchScreen.storyboard */; };
 		BA0A4DCE1D8721FA008F500B /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */; };
+		BA5855001DDE383200EC530A /* InputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5854FF1DDE383200EC530A /* InputViewModel.swift */; };
 		BA5D1B531DD6632E006060CD /* JennaSue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAF4DFA51D899FD8003AA820 /* JennaSue.ttf */; };
 		BA5D1B541DD66334006060CD /* InputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A4DCA1D871915008F500B /* InputTableViewController.swift */; };
 		BA5D1B551DD6633A006060CD /* InputTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */; };
@@ -65,6 +66,7 @@
 		BA0A4DCA1D871915008F500B /* InputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewController.swift; sourceTree = "<group>"; };
 		BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
 		BA5157761DD6453D004B79F2 /* InputTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewHeader.swift; sourceTree = "<group>"; };
+		BA5854FF1DDE383200EC530A /* InputViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewModel.swift; sourceTree = "<group>"; };
 		BA5D1B571DD6721D006060CD /* InputTableViewFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewFooter.swift; sourceTree = "<group>"; };
 		BA66C88D1D999247003B9D3C /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		BA88EFB01DA3E29F00E9CB12 /* inputViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = inputViewControllerTests.swift; path = ../inputViewControllerTests.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				BA5D1B571DD6721D006060CD /* InputTableViewFooter.swift */,
 				BA66C88D1D999247003B9D3C /* Day.swift */,
 				BA0A4DCD1D8721FA008F500B /* InputTableViewCell.swift */,
+				BA5854FF1DDE383200EC530A /* InputViewModel.swift */,
 				BADE23141DCCD24400D806A8 /* PersistMenuData.swift */,
 				BA0A4DB51D870AB8008F500B /* AppDelegate.swift */,
 				BAFE416A1D8B3A34002DA808 /* CycleTableViewController.swift */,
@@ -301,6 +304,7 @@
 				BAFE416B1D8B3A34002DA808 /* CycleTableViewController.swift in Sources */,
 				BA5D1B551DD6633A006060CD /* InputTableViewHeader.swift in Sources */,
 				BA88EFC31DA838F900E9CB12 /* FertilitySignViewController.swift in Sources */,
+				BA5855001DDE383200EC530A /* InputViewModel.swift in Sources */,
 				BAF4DFA81D89A3CA003AA820 /* BackgroundImage.swift in Sources */,
 				BA5D1B581DD6721D006060CD /* InputTableViewFooter.swift in Sources */,
 				BAF4DFAA1D89A482003AA820 /* LaunchViewController.swift in Sources */,
