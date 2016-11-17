@@ -114,6 +114,7 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         }
         
         let fertilityInput = menuData.fertilityInputs[indexPath.row]
+        cell.configure(withViewModel: InputViewModel(input: fertilityInput))
         cell.selectionStyle = .none
         cell.delegate = self
         cell.fertilityInput = fertilityInput

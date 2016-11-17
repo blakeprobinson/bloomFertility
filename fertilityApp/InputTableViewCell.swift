@@ -32,9 +32,7 @@ class TableViewCell: UITableViewCell {
     var fertilityInput: FertilityInput? {
         willSet(newFertilityInput) {
             if let newFertilityInput = newFertilityInput {
-                label.text = newFertilityInput.name.rawValue
                 itemCompleteLayer.isHidden = !newFertilityInput.selected || newFertilityInput.isCategory
-                self.backgroundColor = colorForCell(newFertilityInput)
             }
         }
     }
@@ -102,34 +100,12 @@ class TableViewCell: UITableViewCell {
                                  width: kUICuesWidth, height: bounds.size.height)
         crossLabel.frame = CGRect(x: bounds.size.width + kUICuesMargin, y: 0,
                                   width: kUICuesWidth, height: bounds.size.height)
+        
     }
     
-    func colorForCell(_ input: FertilityInput) -> UIColor {
-        var color:UIColor
-        switch input.category {
-        case .none:
-            switch input.name {
-            case .dry:
-                color = UIColor(red: 93.0/255, green: 188.0/255, blue: 210.0/255, alpha: 1.0)
-            case .bleeding:
-                color = UIColor(red: 255.0/255, green: 192.0/255, blue: 203.0/255, alpha: 1.0)
-            case .lubrication:
-                //rgb(255,255,102)
-                color = UIColor(red: 255.0/255, green: 255.0/255, blue: 102.0/255, alpha: 1.0)
-            case .mucus:
-                color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
-            default:
-                color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
-                print("arrived at meaningless default in switch")
-            }
-        case .dry:
-            color = UIColor(red: 93.0/255, green: 188.0/255, blue: 210.0/255, alpha: 1.0)
-        case .bleeding:
-            color = UIColor(red: 255.0/255, green: 192.0/255, blue: 203.0/255, alpha: 1.0)
-        default:
-            color = UIColor(red: 230.0/255, green: 230.0/255, blue: 250.0/255, alpha: 1.0)
-        }
-        return color
+    func configure(withViewModel viewModel: InputViewModel) {
+        self.label.text = viewModel.name
+        self.backgroundColor = viewModel.color
     }
     
     // utility method for creating the contextual cues
