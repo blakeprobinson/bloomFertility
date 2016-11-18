@@ -29,10 +29,7 @@ class TableViewCell: UITableViewCell {
     // The object that acts as delegate for this cell.
     var delegate: TableViewCellDelegate?
     // The item that this cell renders.
-    var fertilityInput: FertilityInput? {
-        willSet(newFertilityInput) {
-        }
-    }
+    var fertilityInput: FertilityInput?
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
