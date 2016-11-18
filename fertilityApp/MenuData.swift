@@ -11,7 +11,7 @@ import Foundation
 struct MenuData {
     //categories are sorted to make sure switch statement functions correctly in 
     //add subinputs to fertility array
-    var fertilityInputs = MenuData.categoryData().sorted(by: { $0.name.rawValue < $1.name.rawValue })
+    var fertilityInputs = MenuData.categoryData()
     var categoryIndecesInFertilityInputs = [0,1,2]
     var lubricationSelected = false
     var heartTouched = false
@@ -19,60 +19,63 @@ struct MenuData {
     private var bleedingInputs = MenuData.bleedingSubCategory()
     private var mucusInputs = MenuData.mucusSubCategory()
     
-    mutating func selected(input fertilityInput: FertilityInput) -> [IndexPath] {
+    mutating func selected(index indexPath:IndexPath) -> [IndexPath] {
         var indexPaths = [IndexPath]()
-        switch fertilityInput.name {
-            case .dry:
-                indexPaths = addSubInputsToFertilityArray(dryInputs)
-            case .mucus:
-                indexPaths = addSubInputsToFertilityArray(mucusInputs)
-            case .lubrication:
+        let selected = fertilityInputs[indexPath.row]
+        let index = indexPath.row
+        switch selected.name {
+            case "dry":
+                indexPaths = addSubInputsToFertilityArray(dryInputs, index:index)
+            case "mucus":
+                indexPaths = addSubInputsToFertilityArray(mucusInputs, index:index)
+            case "lubrication":
                 print("Lubrication Selected")
-            case .bleeding:
-                indexPaths = addSubInputsToFertilityArray(bleedingInputs)
+            case "bleeding":
+                indexPaths = addSubInputsToFertilityArray(bleedingInputs, index:index)
             default:
                 print("arrived at meaningless default")
         }
         return indexPaths
     }
     
-    mutating func removeSubInputsFromFertilityArrayReturnIndexPaths(_ FertilityInput: FertilityInput) -> [IndexPath]? {
+    mutating func removeSubInputsFromFertilityArray(indexPath: IndexPath) -> [IndexPath]? {
         
-        switch FertilityInput.name {
-            
-        case .dry:
-            return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(FertilityInput.name.rawValue)
-        case .mucus:
-        return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(FertilityInput.name.rawValue)
-        case .lubrication:
+        let unselected = fertilityInputs[indexPath.row]
+        if unselected.isCategory && unselected.name != "lubrication"{
+            return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(unselected.name)
+        } else {
             return nil
-        case .bleeding:
-            return removeInputsOfCategoryAndReturnRemovedIndecesAsIndexPaths(FertilityInput.name.rawValue)
-        default: break
         }
-        return nil
     }
     
     mutating func removeAnySubInputsFromFertilityArray() {
         fertilityInputs = MenuData.categoryData()
     }
     
-    mutating func selectedElements() -> [FertilityInput] {
-        var selectedArray = [FertilityInput]()
+    mutating func changeInputSelection(indexPath: IndexPath, select: Bool) {
+        for (index, var input) in fertilityInputs.enumerated() {
+            if index == indexPath.row {
+                input.selected = select
+            }
+        }
+    }
+    
+    mutating func selectedElements() -> [InputViewModel] {
+        var selectedArray = [InputViewModel]()
         for (_, element) in fertilityInputs.enumerated() {
             if element.selected && !element.isCategory {
                 selectedArray.append(element)
             }
             //Since lubrication is a category with no items in it we need this
             //conditional
-            if element.name.rawValue == "lubrication" {
+            if element.name == "lubrication" {
                 lubricationSelected = true
             }
         }
         return selectedArray
     }
     
-    func validateInputs(_ selectedArray:[FertilityInput]) -> String {
+    func validateInputs(_ selectedArray:[InputViewModel]) -> String {
         var selectedArray = selectedArray
         var validationText = ""
         let arrayCount =  selectedArray.count
@@ -103,7 +106,7 @@ struct MenuData {
                 //validate that one element is bleeding - very light/brown and the
                 //the situation could be needing to select a length or a color in mucus...
                 if categoryZero == "Bleeding" && categoryOne == "Mucus" {
-                    if selectedArray[0].name.rawValue == "light" || selectedArray[0].name.rawValue == "very light" || selectedArray[0].name.rawValue == "brown" {
+                    if selectedArray[0].name == "light" || selectedArray[0].name == "very light" || selectedArray[0].name == "brown" {
                         if selectedArray[1].isLength {
                             //please select a color
                         } else {
@@ -140,7 +143,7 @@ struct MenuData {
             let firstFertilityInput = selectedArray[0]
             let secondFertilityInput = selectedArray[1]
             let thirdFertilityInput = selectedArray[2]
-            if firstFertilityInput.name.rawValue == "light" || firstFertilityInput.name.rawValue == "very light" || firstFertilityInput.name.rawValue == "brown" {
+            if firstFertilityInput.name == "light" || firstFertilityInput.name == "very light" || firstFertilityInput.name == "brown" {
                 //since a value of false for isLength could be another category besides mucus
                 //I am checking to make sure the category is mucus
                 if secondFertilityInput.isLength && !thirdFertilityInput.isLength && thirdFertilityInput.category.rawValue == "mucus" {
@@ -166,25 +169,13 @@ struct MenuData {
 
 private extension MenuData {
     
-    mutating func addSubInputsToFertilityArray(_ subArray: [FertilityInput]) -> [IndexPath] {
-        var insertIndex:Int = 0
-        if let fertilityInputToAdd = subArray[0].requiredInput {
-            let fertilityInputToAdd = fertilityInputToAdd
-            
-            switch fertilityInputToAdd {
-            case .bleeding:
-                insertIndex = categoryIndecesInFertilityInputs[0] + 1
-            case .dry:
-                insertIndex = categoryIndecesInFertilityInputs[1] + 1
-            case .mucus:
-                insertIndex = categoryIndecesInFertilityInputs[2] + 1
-            }
-        }
-        return addInputsAfterIndex(subArray: subArray, index: insertIndex)
+    mutating func addSubInputsToFertilityArray(_ subArray: [InputViewModel], index: Int) -> [IndexPath] {
+
+        return addInputsAfterIndex(subArray: subArray, index: index)
     }
     
-    mutating func addInputsAfterIndex(subArray: [FertilityInput], index:Int) -> [IndexPath] {
-        var mutableIndex = index
+    mutating func addInputsAfterIndex(subArray: [InputViewModel], index:Int) -> [IndexPath] {
+        var mutableIndex = index + 1
         var indexPaths = [IndexPath]()
         for subArrayElement in subArray {
             fertilityInputs.insert(subArrayElement, at: mutableIndex)
@@ -236,39 +227,56 @@ private extension MenuData {
 
 private extension MenuData {
     
-    static func categoryData() -> [FertilityInput] {
-        return [FertilityInput(name: FertilityInput.Name.dry, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil),
+    static func convertToViewModel(fromFertilityInput fertilityInput: FertilityInput) -> InputViewModel {
+        return InputViewModel(input: fertilityInput)
+    }
+    
+    static func convertToViewModelArr(fromFertilityInputArr array:[FertilityInput]) -> [InputViewModel] {
+        var inputVMArray = [InputViewModel]()
+        for input in array {
+            inputVMArray.append(convertToViewModel(fromFertilityInput: input))
+        }
+        return inputVMArray
+    }
+    
+    static func categoryData() -> [InputViewModel] {
+        let array = [FertilityInput(name: FertilityInput.Name.dry, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil),
                 FertilityInput(name: FertilityInput.Name.bleeding, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil),
                 FertilityInput(name: FertilityInput.Name.mucus, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil),
                 FertilityInput(name: FertilityInput.Name.lubrication, isCategory: true, category: FertilityInput.Category.none, isLength:false, requiredInput:nil)]
+        return convertToViewModelArr(fromFertilityInputArr: array)
     }
     
-    static func bleedingSubCategory() -> [FertilityInput] {
+    static func bleedingSubCategory() -> [InputViewModel] {
         let bleedingArray = [RequiredInput.bleeding(RequiredInput.BleedingInput.heavy),
                 RequiredInput.bleeding(RequiredInput.BleedingInput.moderate),
                 RequiredInput.bleeding(RequiredInput.BleedingInput.light),
                 RequiredInput.bleeding(RequiredInput.BleedingInput.veryLight),
                 RequiredInput.bleeding(RequiredInput.BleedingInput.brown)]
         
-        return [FertilityInput(requiredInput: bleedingArray[0]),
+        let array =  [FertilityInput(requiredInput: bleedingArray[0]),
                 FertilityInput(requiredInput: bleedingArray[1]),
                 FertilityInput(requiredInput: bleedingArray[2]),
                 FertilityInput(requiredInput: bleedingArray[3]),
                 FertilityInput(requiredInput: bleedingArray[4])]
         
+        return convertToViewModelArr(fromFertilityInputArr: array)
+        
     }
     
-    static func drySubCategory() -> [FertilityInput] {
+    static func drySubCategory() -> [InputViewModel] {
         let dryArray = [RequiredInput.dry(RequiredInput.DryInput.damp),
                 RequiredInput.dry(RequiredInput.DryInput.shiny),
                 RequiredInput.dry(RequiredInput.DryInput.wet)]
         
-        return [FertilityInput(requiredInput:dryArray[0]),
+        let array =  [FertilityInput(requiredInput:dryArray[0]),
                 FertilityInput(requiredInput:dryArray[1]),
                 FertilityInput(requiredInput:dryArray[2])]
+        
+        return convertToViewModelArr(fromFertilityInputArr: array)
     }
     
-    static func mucusSubCategory() -> [FertilityInput] {
+    static func mucusSubCategory() -> [InputViewModel] {
         let mucusArray = [RequiredInput.mucus(RequiredInput.MucusInput.length(RequiredInput.MucusLengthInput.quarterInch), nil),
                 RequiredInput.mucus(RequiredInput.MucusInput.length(RequiredInput.MucusLengthInput.halfToThreeQuarterInch), nil),
                 RequiredInput.mucus(RequiredInput.MucusInput.length(RequiredInput.MucusLengthInput.oneInch), nil),
@@ -280,7 +288,7 @@ private extension MenuData {
                 RequiredInput.mucus(RequiredInput.MucusInput.color(RequiredInput.MucusColorInput.brown), nil)]
         
             
-        return [FertilityInput(requiredInput:mucusArray[0]),
+        let array =  [FertilityInput(requiredInput:mucusArray[0]),
                 FertilityInput(requiredInput:mucusArray[1]),
                 FertilityInput(requiredInput:mucusArray[2]),
                 FertilityInput(requiredInput:mucusArray[3]),
@@ -289,6 +297,8 @@ private extension MenuData {
                 FertilityInput(requiredInput:mucusArray[6]),
                 FertilityInput(requiredInput:mucusArray[7]),
                 FertilityInput(requiredInput:mucusArray[8])]
+        
+        return convertToViewModelArr(fromFertilityInputArr: array)
 
     }
 }

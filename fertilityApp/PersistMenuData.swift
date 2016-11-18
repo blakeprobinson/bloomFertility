@@ -12,7 +12,7 @@ struct PersistMenuData {
     
     var days = PersistMenuData.fetchDays()
 
-    func selectedArrayToUserInput(_ selectedArray:[FertilityInput]) -> Dictionary<String, String> {
+    func selectedArrayToUserInput(_ selectedArray:[InputViewModel]) -> Dictionary<String, String> {
         
         var userInput: [String:String] = Dictionary()
         
@@ -20,7 +20,7 @@ struct PersistMenuData {
         case 1:
             userInput = [
                 "category1": selectedArray[0].category.rawValue,
-                "selection1":selectedArray[0].name.rawValue,
+                "selection1":selectedArray[0].name,
                 "category2": "",
                 "selection2": "",
                 "selection3": ""
@@ -29,17 +29,17 @@ struct PersistMenuData {
             if selectedArray[0].category != selectedArray[1].category {
                 userInput = [
                     "category1": selectedArray[0].category.rawValue,
-                    "selection1":selectedArray[0].name.rawValue,
+                    "selection1":selectedArray[0].name,
                     "category2": selectedArray[1].category.rawValue,
-                    "selection2":selectedArray[1].name.rawValue,
+                    "selection2":selectedArray[1].name,
                     "selection3": ""
                 ]
             } else {
                 userInput = [
                     "category1": selectedArray[0].category.rawValue,
                     "category2": "",
-                    "selection1":selectedArray[0].name.rawValue,
-                    "selection2":selectedArray[1].name.rawValue,
+                    "selection1":selectedArray[0].name,
+                    "selection2":selectedArray[1].name,
                     "selection3": ""
                 ]
             }
@@ -47,18 +47,18 @@ struct PersistMenuData {
             if selectedArray[0].category != selectedArray[1].category {
                 userInput = [
                     "category1": selectedArray[0].category.rawValue,
-                    "selection1":selectedArray[0].name.rawValue,
+                    "selection1":selectedArray[0].name,
                     "category2": selectedArray[1].category.rawValue,
-                    "selection2":selectedArray[1].name.rawValue,
-                    "selection3":selectedArray[2].name.rawValue
+                    "selection2":selectedArray[1].name,
+                    "selection3":selectedArray[2].name
                 ]
             } else {
                 userInput = [
                     "category1": selectedArray[0].category.rawValue,
                     "category2": selectedArray[2].category.rawValue,
-                    "selection1":selectedArray[0].name.rawValue,
-                    "selection2":selectedArray[1].name.rawValue,
-                    "selection3":selectedArray[2].name.rawValue
+                    "selection1":selectedArray[0].name,
+                    "selection2":selectedArray[1].name,
+                    "selection3":selectedArray[2].name
                 ]
             }
             
@@ -66,7 +66,7 @@ struct PersistMenuData {
         return userInput
     }
     
-    mutating func addNewUserInput(_ selectedArray: [FertilityInput], menuData:MenuData, date:Date) {
+    mutating func addNewUserInput(_ selectedArray: [InputViewModel], menuData:MenuData, date:Date) {
         
         let currentUserInput:Dictionary = selectedArrayToUserInput(selectedArray)
         
