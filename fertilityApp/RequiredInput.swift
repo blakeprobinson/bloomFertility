@@ -46,3 +46,8 @@ extension RequiredInput {
         case quarterInch = "1/4 Inch", halfToThreeQuarterInch = "1/2 to 3/4 inch", oneInch = "greater than 1 inch"
     }
 }
+
+//Enum method
+//extension RequiredInput {
+//    func 
+//}
