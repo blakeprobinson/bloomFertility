@@ -30,13 +30,18 @@ class FertilityInput: NSObject {
         self.name = name
         self.isCategory = (isCategory)
         self.category = category
-//        if let category = Category(rawValue: category) {
-//            self.category = category
-//        } else {
-//            self.category = Category.none
-//        }
         self.selected = false
         self.isLength = isLength
+        self.requiredInput = requiredInput
+        super.init()
+    }
+    
+    init(requiredInput:RequiredInput) {
+        self.name = .none
+        self.isCategory = false
+        self.category = .none
+        self.selected = false
+        self.isLength = false
         self.requiredInput = requiredInput
         super.init()
     }
