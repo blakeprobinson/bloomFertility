@@ -10,9 +10,7 @@ import UIKit
 import QuartzCore
 
 protocol TableViewCellDelegate {
-    // indicates that the given item has been deleted
-    func fertilityInputCategoryDeselected(_ fertilityInput: FertilityInput)
-    func fertilityInputSelected(_ fertilityInput: FertilityInput)
+    
 }
 
 class TableViewCell: UITableViewCell {
@@ -25,6 +23,7 @@ class TableViewCell: UITableViewCell {
     var selectOnDragRelease = false
     let label: UILabel
     var itemCompleteLayer = CALayer()
+    var isCategory = false
     
     // The object that acts as delegate for this cell.
     var delegate: TableViewCellDelegate?
@@ -75,6 +74,7 @@ class TableViewCell: UITableViewCell {
         
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(TableViewCell.handlePan(_:)))
         recognizer.delegate = self
+        recognizer.cancelsTouchesInView = false
         addGestureRecognizer(recognizer)
     }
     
@@ -100,6 +100,7 @@ class TableViewCell: UITableViewCell {
     func configure(withViewModel viewModel: InputViewModel) {
         self.label.text = viewModel.name
         self.backgroundColor = viewModel.color
+        self.isCategory = viewModel.isCategory
         itemCompleteLayer.isHidden = !viewModel.selected || viewModel.isCategory
     }
     
@@ -142,27 +143,27 @@ class TableViewCell: UITableViewCell {
                                        width: bounds.size.width, height: bounds.size.height)
             
             if deselectOnDragRelease {
-                if delegate != nil && fertilityInput != nil {
+                if delegate != nil {
                     // notify the delegate that this item should be deleted
-                    fertilityInput!.selected = false
+//                    fertilityInput!.selected = false
                     itemCompleteLayer.isHidden = true
-                    delegate!.fertilityInputCategoryDeselected(fertilityInput!)
+                    //delegate!.fertilityInputCategoryDeselected(fertilityInput!)
                     UIView.animate(withDuration: 0.2, animations: {self.frame = originalFrame})
                 }
             } else if selectOnDragRelease {
-                if delegate != nil && fertilityInput != nil {
+                if delegate != nil {
                    
                    
-                    if !fertilityInput!.isCategory || fertilityInput!.name.rawValue == "lubrication" {
+                    if !self.isCategory || self.label.text == "lubrication" {
                         //only mark subInputs as selected or not
                         itemCompleteLayer.isHidden = false
-                        fertilityInput!.selected = true
+//                        fertilityInput!.selected = true
                     } else {
                         //the categories need to be selected also so they can't be re-selected
-                        if !fertilityInput!.selected {
-                            delegate!.fertilityInputSelected(fertilityInput!)
-                        }
-                        fertilityInput!.selected = true
+//                        if !fertilityInput!.selected {
+//                            delegate!.fertilityInputSelected(fertilityInput!)
+//                        }
+                        //fertilityInput!.selected = true
                         
                     }
                 }

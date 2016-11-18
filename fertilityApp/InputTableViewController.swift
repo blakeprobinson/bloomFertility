@@ -71,29 +71,6 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         }
         
     }
-    
-    // MARK: - Cell Selection/Deselection Protocol
-
-    func fertilityInputCategoryDeselected(_ FertilityInput:FertilityInput) {
-        let index = (menuData.fertilityInputs as NSArray).index(of: FertilityInput)
-        if index == NSNotFound { return }
-        
-        // use the UITableView to animate the removal of this row
-        inputTableView.beginUpdates()
-        
-        //if indexPaths has a value then remove those indexPaths from the tableView
-        if let indexPaths = menuData.removeSubInputsFromFertilityArrayReturnIndexPaths(FertilityInput) {
-            inputTableView.deleteRows(at: indexPaths, with: .fade)
-        }
-        inputTableView.endUpdates()
-    }
-    
-    func fertilityInputSelected(_ fertilityInput: FertilityInput) {
-        let indexPaths = menuData.selected(input: fertilityInput)
-        inputTableView.beginUpdates()
-        inputTableView.insertRows(at: indexPaths, with: .bottom)
-        inputTableView.endUpdates()
-    }
 
     // MARK: - Table view data source
 
@@ -113,11 +90,11 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
             return initialCell
         }
         
-        let fertilityInput = menuData.fertilityInputs[indexPath.row]
-        cell.configure(withViewModel: InputViewModel(input: fertilityInput))
+        let inputViewModel = menuData.fertilityInputs[indexPath.row]
+        cell.configure(withViewModel: inputViewModel)
         cell.selectionStyle = .none
         cell.delegate = self
-        cell.fertilityInput = fertilityInput
+        cell.fertilityInput = nil
         return cell
     }
     
@@ -128,6 +105,30 @@ class InputTableViewController: UITableViewController, TableViewCellDelegate, In
         } else {
             return 50.0
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //call a method on menuData with the index path to
+        //mark that InputViewModel as selected.
+        menuData.changeInputSelection(indexPath: indexPath, select: true)
+        let indexPaths = menuData.selected(index:indexPath)
+        inputTableView.beginUpdates()
+        inputTableView.insertRows(at: indexPaths, with: .bottom)
+        inputTableView.endUpdates()
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        menuData.changeInputSelection(indexPath: indexPath, select: false)
+        
+        // use the UITableView to animate the removal of this row
+        inputTableView.beginUpdates()
+        
+        //if indexPaths has a value then remove those indexPaths from the tableView
+        if let indexPaths = menuData.removeSubInputsFromFertilityArray(indexPath: indexPath) {
+            inputTableView.deleteRows(at: indexPaths, with: .fade)
+        }
+        inputTableView.endUpdates()
     }
     
 }
